@@ -1,22 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300&family=Overpass:wght@300&family=Poppins:wght@600&display=swap');
+
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    --bg-color: #343434;
+    --text-color: #fff;
+    --main-color: #FFFC4F;
+    --main-secundary: #555555;
+}
+
+body{
+    min-height: 100vh;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+header{
+    position: relative;
     width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    padding: 28px 12%;
+    transition: all .50s ease;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    margin-right: 3px;
+}
+.logo span{
+    color:var(--text-color);
+    font-size: 1.7rem;
+    font-weight: 500;
 }
 
 .navbar{
-    background-color: red;
-    text-align: right;
     display: flex;
-    padding: 13px 0 13px 0;
 }
-.navbar li{
-    display: inline;
+.navbar a{
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 5px 0;
+    margin: 0px 30px;
+    transition: all .50s ease;
+}
+.navbar a:hover{
+    color:var(--main-color);
 }
 
-.navbar a{
-    padding: 20px 15px 10px 20px;
-    text-decoration: none;
-    color: #434343;
-    font-weight: bold;
+.main{
+    display: flex;
+    align-items: center;
+}
+.main a{
+    margin-right: 25px;
+    margin-left: 10px;
+    color:var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all .50s ease;
+}
+.user{
+    display: flex;
+    align-items: center;
+}
+.user i{
+    color: var(--main-color);
+    font-size: 28px;
+    margin-right: 7px;
+}
+.main a:hover{
+    color: var(--main-color);
+}
+#menu-icon{
+    font-size: 35px;
+    color: var(--text-color);
+    cursor: pointer;
+    z-index: 10001;
+    display: none;
+}
+
+@media (max-width: 1280px){
+    header{
+        padding:14px 2%;
+        transition: .2s;   
+    }
+    .navbar a{
+        padding: 5px 0;
+        margin: 0px 20px;
+    }
+}
+
+@media (max-width:1090px){
+    #menu-icon{
+        display: block;
+    }
+    .navbar{
+        position: absolute;
+        top: 100%;
+        right: -100%;
+        width: 270px;
+        height: 29vh;
+        background: var(--main-secundary);
+        display: flex;
+        flex-direction: column;
+        justify-content:flex-start;
+        border-radius: 10px;
+        transition: all .50s ease;
+    }
+    .navbar a{
+        display: block;
+        margin: 12px 0;
+        padding: 0px 25px;
+        transform: all .50s ease;
+    }
+    .navbar a:hover{
+        color: #343434;
+        transform: translateY(5px);
+    }
+    .navbar.open{
+        right: 2%;
+    }
 }
