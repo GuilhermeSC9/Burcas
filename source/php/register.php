@@ -2,25 +2,39 @@
 session_start();
 include_once('db.php');
 if(isset($_POST['register'])){
+
+    //variaveis
     $user = $_POST['username'];
     $_SESSION['user'] = $user;
     $pass = $_POST['password'];
     $c_pass = $_POST['c_password'];
     $admin = $_POST['admin_pass'];
+    $email = $_POST['email'];
+
+    // PEGAR SENHA ADMIN DATABASE
+    $sql = mysqli_query($con,"SELECT password FROM users WHERE username = 'admin'");
+    $result_sql = mysqli_fetch_assoc($sql);
+    $admin_db = $result_sql['password'];
     
+    //verificar se ja existe o username
     $query = mysqli_query($con,"SELECT * FROM users WHERE username = '$user'");
     $result = mysqli_fetch_assoc($query);
+
+    
     if($user == $result['username']){
         echo "username ja existente";
     }
     else{
+        //verificar se password conhencide
         if($pass == $c_pass){
-            if($admin == ""){
+            //VERIFICAR SE SENHA ADMIN CONHECIDE
+            if(!password_verify($admin,$admin_db)){
                 $secure_pass = password_hash($pass,PASSWORD_DEFAULT);
                 $query = mysqli_query($con,"INSERT INTO users (username,password,email) VALUES('$user','$secure_pass','$email')");
             }
             else{
-                echo "ADMIJNNNNN";
+                $secure_pass = password_hash($pass,PASSWORD_DEFAULT);
+                $query = mysqli_query($con,"INSERT INTO users (username,password,email,admin) VALUES('$user','$secure_pass','$email',1)");
             }
         }
         else{
