@@ -3,43 +3,29 @@ session_start();
 include_once('db.php');
 if(isset($_POST['register'])){
     // definindo variaveis 
+
+    //variaveis
     $user = $_POST['username'];
     $_SESSION['user'] = $user;
     $pass = $_POST['password'];
     $c_pass = $_POST['c_password'];
     $admin = $_POST['admin_pass'];
-    $email = $_POST['email'];
-
-    //solcitiando senha admin do banco
-    $sql = mysqli_query($con,"SELECT password FROM users WHERE username = 'admin'");
-    $sql_result = mysqli_fetch_assoc($sql);
-    $admin_db = $sql_result['password'];
     
-    // verificando se username existe
     $query = mysqli_query($con,"SELECT * FROM users WHERE username = '$user'");
     $result = mysqli_fetch_assoc($query);
+
+    
     if($user == $result['username']){
         echo "username ja existente";
     }
     else{
-        //verificando se email esta no formato valido
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL) or $email == ""){
-            echo "ÏNVALID EMAIL FORMAT";
-        }
-        else{
-            //verificando se password e confirm password concidem
-            if($pass == $c_pass){
-                //verificando se senha admin esta correta
-                if(password_verify($admin,$admin_db)){
-                    $secure_pass = password_hash($pass,PASSWORD_DEFAULT);
-                    $query = mysqli_query($con,"INSERT INTO users (username,password,email,admin) VALUES('$user','$secure_pass','$email',1)");
-                }
-                else{
-                    
-                }
+        if($pass == $c_pass){
+            if($admin == ""){
+                $secure_pass = password_hash($pass,PASSWORD_DEFAULT);
+                $query = mysqli_query($con,"INSERT INTO users (username,password,email) VALUES('$user','$secure_pass','$email')");
             }
             else{
-                echo "digita a sena igual fldpt";
+                echo "ADMIJNNNNN";
             }
         }
     }
