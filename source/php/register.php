@@ -1,8 +1,10 @@
 <?php 
 session_start();
 include_once('db.php');
+
+
+
 if(isset($_POST['register'])){
-    // definindo variaveis 
 
     //variaveis
     $user = $_POST['username'];
@@ -19,17 +21,23 @@ if(isset($_POST['register'])){
         echo "username ja existente";
     }
     else{
+        //validar se senha é igual a confirma senha e verificando se o cadastro é com direitos de admin
         if($pass == $c_pass){
             if($admin == ""){
                 $secure_pass = password_hash($pass,PASSWORD_DEFAULT);
                 $query = mysqli_query($con,"INSERT INTO users (username,password,email) VALUES('$user','$secure_pass','$email')");
+                echo "CRIADO COM SUCESSO";
             }
             else{
-                echo "ADMIJNNNNN";
+                $secure_pass = password_hash($pass,PASSWORD_DEFAULT);
+                $query = mysqli_query($con,"INSERT INTO users (username,password,email,admin) VALUES('$user','$secure_pass','$email',1)");
+                echo "CRIADO COM SUCESSO";
             }
         }
     }
 }
+//temporario
+
 if(isset($_POST['verify'])){
     $pass = $_POST['password'];
     $user = $_POST['username'];
@@ -43,6 +51,10 @@ if(isset($_POST['verify'])){
         echo "errado";
     }
     
+}
+
+if(isset($_POST['login'])){
+    header("location: login.php");
 }
 
 
@@ -73,6 +85,7 @@ if(isset($_POST['verify'])){
             <div class="buttons">
             <button name="verify">veirfy</button>
             <button name="register">Sign-in</button>
+            <button name="login">lOGIN</button>
             </div>
         </div>
     </form>
