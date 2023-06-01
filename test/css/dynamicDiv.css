@@ -36,8 +36,9 @@
 }
 
 .grid{
-    max-height: 80vh;
+    min-height: 100px;
     display: grid;
+    grid-template-columns: repeat(5 ,auto);
     border: 2px solid white;
     grid-gap: 1rem;
     justify-content: space-between;
@@ -47,5 +48,5 @@
     border: 3px solid lightseagreen;
     height: 100px;
     width: 100px;
-    padding: 5px auto;
+    padding: 10px;
 }
