@@ -17,8 +17,14 @@
             </h2>
         <div class="grid" id="grid">
         </div>
-        <button class="btn" onclick="criarMesa()">Criar Mesa</button>
+        <button class="btn" onclick="openDialog()">Criar Mesa</button>
     </div>
+    <dialog id="dialog" class="dialog">
+        <p class="error"></p><br>
+        <input type="text" placeholder="TABLE NAME" id="table_name"><br>
+        <input type="number" name="table_number" placeholder="table number" id="table_number"><br>
+        <button onclick="criarMesa()">CRIAR</button>
+    </dialog>
 </body>
 <script src="/test/js/dynamicDiv.js"></script>
 </html>

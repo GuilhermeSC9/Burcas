@@ -1,0 +1,10 @@
+header{
+background: red;
+padding: 30px;
+transition: all 0.3s;
+}
+
+header.scrolled {
+padding: 10px;
+background: transparent;
+}

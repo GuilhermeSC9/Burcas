@@ -9,7 +9,8 @@
 
 .main{
     display: block;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     width: 95%;
     margin: 10px auto;
     border: 2px solid #000;
@@ -37,16 +38,58 @@
 
 .grid{
     min-height: 100px;
+    max-height: fit-content;
     display: grid;
-    grid-template-columns: repeat(5 ,auto);
+    padding: 8px;
+    grid-template-columns: repeat(5 , auto);
     border: 2px solid white;
     grid-gap: 1rem;
     justify-content: space-between;
+    transition: .2s ease;
+    
 }
 .gridItem{
+    cursor:pointer;
     margin: 5px auto;
     border: 3px solid lightseagreen;
     height: 100px;
-    width: 100px;
+    min-width: 100px;
+    text-align: center;
+    width: fit-content;
     padding: 10px;
+    background: linear-gradient(#167c77 0 0) var(--p,0)/var(--p,0) no-repeat;
+    transition: all .2s;
+    
+}
+.gridItem:hover{
+    --p:100%;
+    border: 3px solid rgb(22, 124, 119);
+}
+
+
+.dialog{
+    position: absolute;
+    top: 5%;
+    left: 37%;
+    height: 90vh;
+    justify-content: center;
+    text-align: center;
+    background-color: transparent;
+}
+.dialog.p{
+    color:red;
+}
+
+
+@media (max-width:750px){
+    .grid{
+        grid-template-columns: repeat(3, auto);
+        
+    }
+}
+
+@media (max-width:414px){
+    .grid{
+        grid-template-columns:  repeat(2, auto);
+    }
 }
