@@ -9,17 +9,17 @@ function criarMesa(){
     var number = document.getElementById('table_number').value;
 
     if(name == "" && number == ""){
-        openDialog('por favordigite os valores');
+        openDialog('Por favor, digite os valores!');
     }
     else if(name == ""){
-        openDialog('PREENCHA O NOME !');
+        openDialog('Preencha o nome!');
     }
     else if(number == ""){
-        openDialog("preencha o numero");
+        openDialog('Preencha o numero!');
     }
     else{
-        var grid = document.getElementById("grid");
-        var mesa = document.createElement("div");
+        var grid = document.getElementById('grid');
+        var mesa = document.createElement('div');
         var mesaContent = document.createElement('h1');
         var mesaContent_two = document.createElement('h2');
 
