@@ -70,16 +70,23 @@
 .dialog{
     position: absolute;
     top: 5%;
-    left: 37%;
+    left: 32%;
     height: 90vh;
+    width: 70vh;
     justify-content: center;
     text-align: center;
     background-color: transparent;
 }
-.dialog.p{
-    color:red;
+.error{
+    font-size: 32px;
 }
-
+header{
+    height: 100px;
+    background-color: red;
+    text-align: end;
+    padding: 10px;
+    font-size: 22px;
+}
 
 @media (max-width:750px){
     .grid{

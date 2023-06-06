@@ -21,6 +21,12 @@ if ($login) {
     $sql = mysqli_query($con,"SELECT admin FROM users WHERE username = '$username'");
     $result = mysqli_fetch_assoc($sql);
     $result_ofc = $result['admin'];
+    if($result_ofc == 1){
+        $_SESSION['admin'] = TRUE;
+    }
+    else{
+        $_SESSION['admin'] = FALSE;
+    }
     //criar banco de dados automaticamente se ja nao existente
     if (isset($_POST['create'])) {
         if (mysqli_query($con, "CREATE DATABASE IF NOT EXISTS $db_name")) {
@@ -67,6 +73,7 @@ if(isset($_POST['logoff'])){
     </form>
     <button name="OLA" id="butt_log" onclick="window.href='login.php'">LOGAR</button>
     <button id="admin_panel" onclick="window.location.href='admin_panel.php'">admin panel</button>
+    <button onclick="window.location.href='/test/dynamicDiv.php'">DIV DYNAMIC</button>
     
 </body>
 <script>

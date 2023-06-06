@@ -14,11 +14,12 @@ else{
         $user = $_POST['username'];
         $pass = $_POST['password'];
     
-        $sql = mysqli_query($con,"SELECT password FROM users WHERE username = '$user'");
+        $sql = mysqli_query($con,"SELECT * FROM users WHERE username = '$user'");
         $result = mysqli_fetch_assoc($sql);
         if(password_verify($pass,$result['password'])){
             $_SESSION['logged'] = true;
             $_SESSION['user'] = $_POST['username'];
+            $_SESSION['id'] = $result['id'];
             header("location:table.php");
             exit();
         }
