@@ -48,10 +48,11 @@ $run = mysqli_query($con,"SELECT * from mesas");
             while ($result = mysqli_fetch_assoc($run)) {
             $names = $result['name'];
             $number = $result['number'];
-            echo '<div class="gridItem"> 
-                <h1>' . $names . '</h1>
-                <h2>' . $number . '</h2>
-                </div>';
+            $table_id = $result['id'];
+            echo "<div class='gridItem' onclick=\"window.location.href = 'test.php?id=$table_id'\">  
+                <h1>  $names  </h1>
+                <h2>  $number  </h2>
+                </div>";
             }
 
             ?>
@@ -63,6 +64,10 @@ $run = mysqli_query($con,"SELECT * from mesas");
         <input type="text" placeholder="TABLE NAME" id="table_name"><br>
         <input type="number" name="table_number" placeholder="table number" id="table_number"><br>
         <input type="hidden" id="username_session" data-content="<?php echo $session_user?>">
+        <?php $run = mysqli_query($con,'SELECT * FROM mesas');
+        $result = mysqli_fetch_assoc($run);
+        ?>
+        <input type="hidden" id="table_id" data-content="<?php echo $result['id']?>">
         <button onclick="criarMesa()">CRIAR</button>
     </dialog>
 </body>

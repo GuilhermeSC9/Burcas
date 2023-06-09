@@ -18,7 +18,15 @@ if($name){
     if($run == TRUE){
         $run = mysqli_query($con,"CREATE DATABASE IF NOT EXISTS $db_name");
         mysqli_select_db($con,$db_name);
-        $RUN_TABLE = mysqli_query($con,"CREATE TABLE IF NOT EXISTS $name (product VARCHAR(255) NOT NULL,unit_price DOUBLE ,total_price DOUBLE,garcom VARCHAR(255)");
+        $RUN_TABLE = mysqli_query($con, "CREATE TABLE IF NOT EXISTS $name (
+            id INT NOT NULL AUTO_INCREMENT,
+            product VARCHAR(255) NOT NULL,
+            unit_price DOUBLE,
+            total_price DOUBLE,
+            garcom VARCHAR(255),
+            PRIMARY KEY(id)
+        )");
+        
         if($RUN_TABLE == TRUE){
             echo "banco de dados criado com sucesso";
         }

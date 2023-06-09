@@ -2,7 +2,11 @@
 
 usernameElement = document.getElementById('username_session');
 username = usernameElement.getAttribute('data-content');
-console.log(username)
+
+idElement = document.getElementById('table_id');
+table_id = idElement.getAttribute('data-content');
+console.log(table_id);
+
 
 if(!username){
     var li = document.getElementsByClassName('li')[0];
@@ -73,7 +77,7 @@ function criarMesa(){
 
         ///MESA
         mesa.setAttribute('class' , 'gridItem');
-        mesa.setAttribute('onclick', "window.location.href = '/test/test.html?id=" + number + "'");
+        mesa.setAttribute('onclick', "window.location.href = '/test/test.php?id=" + table_id + "'");
 
         //declarando filhos
         grid.appendChild(mesa);
