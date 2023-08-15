@@ -9,9 +9,10 @@ if(isset($_POST['submit'])){
     $valor = $_POST['VALOR'];
     $desc = $_POST['DESCRICAO'];
     $category = $_POST['category'];
+    $image = $_POST['IMAGE'];
 
     mysqli_select_db($con,'menu');
-    if(mysqli_query($con,"INSERT INTO products(product,price,category,description) VALUES ('$produto',$valor,'$category','$desc')")){
+    if(mysqli_query($con,"INSERT INTO products(product,price,category,description,image) VALUES ('$produto',$valor,'$category','$desc','$image')")){
         echo "PRONTO";
     }
 
@@ -35,6 +36,7 @@ if(isset($_POST['submit'])){
         <input type="text" placeholder="PRODUTO" name="PRODUTO">
         <input type="number" placeholder="VALOR" name="VALOR">
         <input type="text" placeholder="DESCRIUCAO" name="DESCRICAO">
+        <input type="text" placeholder=" URL DA IMAGEM" name="IMAGE">
         <select name="category" id="category">
             <option value="lanches">LANCHES</option>
             <option value="porcoes">PORÇÕES</option>

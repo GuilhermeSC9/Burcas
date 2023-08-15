@@ -32,6 +32,7 @@ function fetchProducts($category){
 if(isset($_POST['logoff'])){
     header("location: menu.php");
     $_SESSION['logged'] = false;
+    session_destroy();
     exit();
 };
 
@@ -81,7 +82,7 @@ catch (Exception $e){
         <div class="main">
             <li><a class="cart" href="cart.php"><img src="source/img/cart 30x30.png"></a>
             <?php
-            if($_SESSION['logged'] == true) {
+            if(isset($_SESSION['logged'])) {
                 echo '<li>' . strtoupper($_SESSION['user']) . '</li>';
                 echo "<form method='POST'>";
                 echo '<li><button class="logoff" type="submit" name="logoff" id="logoff">LOGOFF</button></li>';
