@@ -1,11 +1,57 @@
 <?php 
+session_start();
 include("source/php/db.php");
 
-if(mysqli_select_db($con,"menu")){
-    $sql = mysqli_query($con,"SELECT * FROM menu");
+
+function fetchProducts(){
+    include("source/php/db.php");
+    mysqli_select_db($con,'menu');
+    try {
+        $sql = mysqli_query($con, "SELECT * FROM products");
+        $products = array(); // Initialize an array to store fetched products
+        
+        while ($row = mysqli_fetch_assoc($sql)) {
+            $products[] = $row; // Add each product to the array
+        }
+        
+        return $products; // Return the array of products
+    }
+    catch (Exception $e){
+        $msg = $e->getMessage();
+        mysqli_query($con,"CREATE TABLE IF NOT EXISTS products (
+            id INT AUTO_INCREMENT NOT NULL,
+            product VARCHAR(255) NOT NULL,
+            category VARCHAR(255) NOT NULL,
+            description VARCHAR(255),
+            price DOUBLE,
+            image VARCHAR(255),
+            PRIMARY KEY (id))");
+    }
 }
-else{
-    echo "SEM BANCO DE DADOS";
+
+if(isset($_POST['logoff'])){
+    header("location: menu.php");
+    session_abort();
+    exit();
+};
+
+
+try{
+    if(mysqli_select_db($con,"menu")){
+        $sql = mysqli_query($con,"SELECT * FROM products");
+        $result = mysqli_fetch_assoc($sql);
+        fetchProducts();
+    };
+}
+catch (Exception $e){
+    $msg = $e->getMessage();
+    if($msg == "Unknown database 'menu'"){
+        $run = mysqli_query($con,"CREATE DATABASE IF NOT EXISTS `menu`");
+        if($run){
+            mysqli_select_db($con,'menu');
+            fetchProducts();
+        }
+    }
 }
 
 
@@ -32,35 +78,45 @@ else{
         <ul class="navbar">
             <li><a href="#">Serviços</a></li>
             <li><a href="#">Contato</a></li>
-            <li><a class="menu" href="menu.html">Cardápio</a></li>
+            <li><a class="menu" href="menu.php">Cardápio</a></li>
         </ul>
         <div class="main">
-            <li><a href="source/php/register.php" class="user"><i class="ri-user-2-fill"></i>Sign in</a></li>
-            <li><a href="#">Login</a></li>
-            <div class="bx bx-menu" id="menu-icon">
+            <?php
+            if(isset($_SESSION['logged'])) {
+                echo '<h1>' . $_SESSION['user'] . '</h1>';
+                echo "<form method='POST'>";
+                echo '<button type="submit" name="logoff" id="logoff">LOGOFF</button>';
+            } 
+            else{
+            echo '<li><a href="source/php/register.php" class="user"><i class="ri-user-2-fill"></i>Sign in</a></li>';
+            echo '<li><a href="source/php/login.php">Login</a></li>';
+            echo '<div class="bx bx-menu" id="menu-icon">';
+
+            }
+            
+            ?>
             </div>
         </div>
     </header>
 
 <div class="container">
     <section class="Lanches">
-        <div class="product">
-            <img src="/source/img/lanche.png" height="120px" width="120px" alt="lanche">
-            <div class="LanchesText">
-                <h3>NOME DO LANCHE</h3>
-                <span>DESCRICAO DO LANCHE DE ATE 32 PALAVRAS e ai eu quero saber como ele vai quebrar linha tbm para manter pq ate aqui le ta mantendo ali em cima</span>
-            </div>
-            <div class="order">
-                <img src="source/img/cart 30x30.png"  width="40px" alt="shopping-cart">
-            </div>
-        </div>
-        <div class="product">
-            <img src="/source/img/lanche.png" height="120px" width="120px" alt="lanche">
-            <div class="LanchesText">
-                <h3>FONDUE BURGUER</h3>
-                <span>DESCRICAO DO LANCHE DE ATE 32 PALAVRAS e ai eu quero saber como ele vai quebrar linha tbm para manter pq ate aqui le ta mantendo ali em cima</span>
-            </div>
-        </div>
+        <?php
+        $fetchedProducts = fetchProducts(); // Fetch the products using the function
+    
+        foreach($fetchedProducts as $product) {
+            echo '<div class="product">';
+            echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+            echo '<div class="LanchesText">';
+            echo '<h3>' . $product['product'] . '</h3>';
+            echo '<span>' . $product['description'] . '</span>';
+            echo '</div>';
+            echo '<div class="order">';
+            echo '<img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart">';
+            echo '</div>';
+            echo '</div>';
+        }
+        ?>
     </section>
 </div>
 

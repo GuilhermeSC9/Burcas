@@ -58,6 +58,7 @@ if(isset($_POST['register'])){
         <input type="password" name="password" id="">
         <button name="send">enviar</button>
         <button name="register">regster</button>
+        <a href="/menu.php">menu</a>
     </form>
 </body>
 <script>

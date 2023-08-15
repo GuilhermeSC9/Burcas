@@ -71,9 +71,10 @@ if(isset($_POST['logoff'])){
         <p>Bem Vindo <?php echo ucwords($username) ?> Você esta atualmente no <?php echo ucwords($db_name) ?></p>
         <button name="logoff" id="logoff">LOGOOF</button>
     </form>
-    <button name="OLA" id="butt_log" onclick="window.href='login.php'">LOGAR</button>
+    <button name="OLA" id="butt_log" onclick="window.href='/menu.php'">LOGAR CADE</button>
     <button id="admin_panel" onclick="window.location.href='admin_panel.php'">admin panel</button>
     <button onclick="window.location.href='/test/dynamicDiv.php'">DIV DYNAMIC</button>
+    <a href="/ProjetoFeatGui/Burcas/menu.php">MENU</a>
     
 </body>
 <script>
