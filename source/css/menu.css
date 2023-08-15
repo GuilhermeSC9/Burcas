@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300&family=Overpass:wght@300&family=Poppins:wght@600&display=swap');
 
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -9,20 +9,20 @@
     font-family: 'Poppins', sans-serif;
 }
 
-:root{
+:root {
     --bg-color: #343434;
     --text-color: #fff;
     --main-color: #FFFC4F;
     --main-secundary: #555555;
 }
 
-body{
-    padding:0px;
+body {
+    padding: 0px;
     background: var(--bg-color);
     color: var(--text-color);
 }
 
-header{
+header {
     background: var(--main-secundary);
     position: relative;
     width: 100%;
@@ -36,22 +36,30 @@ header{
     transition: all .50s ease;
 }
 
-.logo{
+.logo {
     display: flex;
     align-items: center;
     font-size: 30px;
     margin-right: 3px;
 }
-.logo span{
-    color:var(--text-color);
+
+.logo span {
+    color: var(--text-color);
     font-size: 1.7rem;
     font-weight: 500;
 }
 
-.navbar{
+.navbar {
     display: flex;
 }
-.navbar a{
+
+.cart {
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+}
+
+.navbar a {
     color: var(--text-color);
     font-size: 1.1rem;
     font-weight: 500;
@@ -59,64 +67,107 @@ header{
     margin: 0px 30px;
     transition: all .50s ease;
 }
-.navbar a:hover{
-    color:var(--main-color);
+
+.navbar a:hover {
+    color: var(--main-color);
 }
-.product{
+
+.product {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     max-height: 200px;
 }
-.order img:hover{
+
+.order img {
+    transition: all .50s ease;
+}
+
+.order img:hover {
     cursor: pointer;
     background-color: rgba(93, 90, 90, 0.183);
+    transition: all .50s ease;
 }
-.product img{
+
+.product img {
     border-radius: 10px;
+
 }
-.Lanches{
-    
+
+
+.Lanches {
     display: grid;
     grid-template-columns: 1 1fr;
     gap: 25px;
 }
-.LanchesText{
+
+.Porcoes {
+    display: grid;
+    grid-template-columns: 1 1fr;
+    gap: 25px;
+}
+
+.price {
+    color: var(--main-color);
+    /* You can customize the color */
+    font-weight: bold;
+    /* You can customize the font-weight */
+    font-size: 18px;
+    /* You can customize the font-size */
+    text-align: end;
+}
+
+section h1 {
+    background-color: #fffc4f3a;
+    width: fit-content;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+
+.LanchesText {
     flex: 1;
     max-width: 500px;
 }
-.LanchesText h3{
+
+.LanchesText h3 {
     width: fit-content;
     padding: 2px;
     border-radius: 9px;
     background-color: rgba(161, 160, 160, 0.494);
     margin-bottom: 10px;
 }
-.main{
+
+.main {
     display: flex;
     align-items: center;
 }
-.main a{
+
+.main a {
     margin-right: 25px;
     margin-left: 10px;
-    color:var(--text-color);
+    color: var(--text-color);
     font-size: 1.1rem;
     font-weight: 500;
     transition: all .50s ease;
 }
-.user{
+
+.user {
     display: flex;
     align-items: center;
 }
-.user i{
+
+.user i {
     color: var(--main-color);
     font-size: 28px;
     margin-right: 7px;
 }
-.main a:hover{
+
+.main a:hover {
     color: var(--main-color);
 }
-#menu-icon{
+
+#menu-icon {
     font-size: 35px;
     color: var(--text-color);
     cursor: pointer;
@@ -125,13 +176,14 @@ header{
 }
 
 
-.container{
+.container {
     width: 1024px;
     margin: 20px auto;
     align-content: center;
     align-items: center;
 }
-.gallery{
+
+.gallery {
     display: flex;
     margin: 10px auto;
     max-width: 90%;
@@ -140,24 +192,27 @@ header{
     text-align: center;
 }
 
-.model img{
+.model img {
     border-radius: 20px;
 }
 
-.container-contact{
+.container-contact {
     bottom: 0;
     position: fixed;
     text-align: center;
     width: 100%;
 }
-.About-us{
+
+.About-us {
     text-align: center;
     justify-content: center;
 }
-.navbar-contact{
+
+.navbar-contact {
     display: flex;
 }
-.navbar-contact a{
+
+.navbar-contact a {
     color: var(--text-color);
     font-size: 1.1rem;
     font-weight: 500;
@@ -165,10 +220,12 @@ header{
     margin: 0px 30px;
     transition: all .50s ease;
 }
-.whats:hover{
-    color: rgb(37,211,102);
+
+.whats:hover {
+    color: rgb(37, 211, 102);
 }
-.insta:hover{
+
+.insta:hover {
     background: #FEDA75;
     background: linear-gradient(to right, #FEDA75 9%, #FA7E1E 38%, #D62976 67%, #962FBF 62%, #4F5BD5 100%);
     -webkit-background-clip: text;
@@ -176,22 +233,32 @@ header{
 
 }
 
-@media (max-width: 1280px){
-    header{
-        padding:14px 2%;
-        transition: .2s;   
+.logoff {
+    background: none;
+    border: none;
+    padding: 10px;
+    font-size: 10px;
+}
+
+
+@media (max-width: 1280px) {
+    header {
+        padding: 14px 2%;
+        transition: .2s;
     }
-    .navbar a{
+
+    .navbar a {
         padding: 5px 0;
         margin: 0px 20px;
     }
 }
 
-@media (max-width:1090px){
-    #menu-icon{
+@media (max-width:1090px) {
+    #menu-icon {
         display: block;
     }
-    .navbar{
+
+    .navbar {
         position: absolute;
         top: 100%;
         right: -100%;
@@ -204,32 +271,38 @@ header{
         border-radius: 10px;
         transition: all .50s ease;
     }
-    .navbar a{
+
+    .navbar a {
         display: block;
         margin: 12px 0;
         padding: 0px 25px;
         transform: all .50s ease;
     }
-    .navbar a:hover{
+
+    .navbar a:hover {
         color: #343434;
         transform: translateY(5px);
     }
-    .navbar.open{
+
+    .navbar.open {
         right: 2%;
     }
 
-    .gallery{
+    .gallery {
         position: inherit;
         display: flex;
         flex-direction: column;
         margin: 10px auto;
     }
 
-    .model{
+    .model {
         margin: 20px auto;
     }
-   .container{
+
+    .container {
         max-width: 50%;
         width: auto;
-    };
+    }
+
+    ;
 }

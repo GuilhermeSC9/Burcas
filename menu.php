@@ -3,11 +3,11 @@ session_start();
 include("source/php/db.php");
 
 
-function fetchProducts(){
+function fetchProducts($category){
     include("source/php/db.php");
     mysqli_select_db($con,'menu');
     try {
-        $sql = mysqli_query($con, "SELECT * FROM products");
+        $sql = mysqli_query($con, "SELECT * FROM products WHERE category = '$category' ");
         $products = array(); // Initialize an array to store fetched products
         
         while ($row = mysqli_fetch_assoc($sql)) {
@@ -31,7 +31,7 @@ function fetchProducts(){
 
 if(isset($_POST['logoff'])){
     header("location: menu.php");
-    session_abort();
+    $_SESSION['logged'] = false;
     exit();
 };
 
@@ -40,7 +40,6 @@ try{
     if(mysqli_select_db($con,"menu")){
         $sql = mysqli_query($con,"SELECT * FROM products");
         $result = mysqli_fetch_assoc($sql);
-        fetchProducts();
     };
 }
 catch (Exception $e){
@@ -49,7 +48,6 @@ catch (Exception $e){
         $run = mysqli_query($con,"CREATE DATABASE IF NOT EXISTS `menu`");
         if($run){
             mysqli_select_db($con,'menu');
-            fetchProducts();
         }
     }
 }
@@ -81,11 +79,13 @@ catch (Exception $e){
             <li><a class="menu" href="menu.php">Cardápio</a></li>
         </ul>
         <div class="main">
+            <li><a class="cart" href="cart.php"><img src="source/img/cart 30x30.png"></a>
             <?php
-            if(isset($_SESSION['logged'])) {
-                echo '<h1>' . $_SESSION['user'] . '</h1>';
+            if($_SESSION['logged'] == true) {
+                echo '<li>' . strtoupper($_SESSION['user']) . '</li>';
                 echo "<form method='POST'>";
-                echo '<button type="submit" name="logoff" id="logoff">LOGOFF</button>';
+                echo '<li><button class="logoff" type="submit" name="logoff" id="logoff">LOGOFF</button></li>';
+                echo '<li><a href="addlanche.php"> Adicionar lanche </a></li>';
             } 
             else{
             echo '<li><a href="source/php/register.php" class="user"><i class="ri-user-2-fill"></i>Sign in</a></li>';
@@ -101,21 +101,48 @@ catch (Exception $e){
 
 <div class="container">
     <section class="Lanches">
+        <h1>LANCHES</h1>
         <?php
-        $fetchedProducts = fetchProducts(); // Fetch the products using the function
+        $fetchedProducts = fetchProducts('lanches'); // Fetch the products using the function
     
-        foreach($fetchedProducts as $product) {
+        foreach ($fetchedProducts as $product) {
             echo '<div class="product">';
             echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
             echo '<div class="LanchesText">';
-            echo '<h3>' . $product['product'] . '</h3>';
-            echo '<span>' . $product['description'] . '</span>';
+            echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
+            echo '<p>' . $product['description'] . '</p>'; // Display product description
             echo '</div>';
             echo '<div class="order">';
-            echo '<img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart">';
+            echo '<a href="menu.php?id=' . $product['id'] . '"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
             echo '</div>';
             echo '</div>';
         }
+        
+        ?>
+    </section>
+
+    <section class="Porcoes">
+        <br>
+        <h1>Porções</h1>
+        <br>
+        <?php
+        $fetchedProducts = fetchProducts('Porcoes'); // Fetch the products using the function
+    
+        foreach ($fetchedProducts as $product) {
+            echo '<div class="product">';
+            echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+            echo '<div class="LanchesText">';
+            echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
+            echo '<p>' . $product['description'] . '</p>'; // Display product description
+            echo '</div>';
+            echo '<div class="order">';
+            echo '<a href="menu.php?id=' . $product['id'] . '"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
+            echo '</div>';
+            echo '</div>';
+        }
+        
         ?>
     </section>
 </div>
