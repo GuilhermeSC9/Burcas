@@ -62,7 +62,36 @@ header{
 .navbar a:hover{
     color:var(--main-color);
 }
-
+.product{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-height: 200px;
+}
+.order img:hover{
+    cursor: pointer;
+    background-color: rgba(93, 90, 90, 0.183);
+}
+.product img{
+    border-radius: 10px;
+}
+.Lanches{
+    
+    display: grid;
+    grid-template-columns: 1 1fr;
+    gap: 25px;
+}
+.LanchesText{
+    flex: 1;
+    max-width: 500px;
+}
+.LanchesText h3{
+    width: fit-content;
+    padding: 2px;
+    border-radius: 9px;
+    background-color: rgba(161, 160, 160, 0.494);
+    margin-bottom: 10px;
+}
 .main{
     display: flex;
     align-items: center;
@@ -116,8 +145,10 @@ header{
 }
 
 .container-contact{
-    margin-top: 80px;
+    bottom: 0;
+    position: fixed;
     text-align: center;
+    width: 100%;
 }
 .About-us{
     text-align: center;
