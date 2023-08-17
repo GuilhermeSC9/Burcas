@@ -125,6 +125,7 @@ header {
 }
 
 .About-us {
+    height: 12px;
     text-align: center;
     justify-content: center;
 }
@@ -141,6 +142,34 @@ header {
     margin: 0px 30px;
     transition: all .50s ease;
 }
+.LanchesText {
+    flex: 1;
+    max-width: 500px;
+}
+
+.LanchesText h3 {
+    width: fit-content;
+    padding: 2px;
+    border-radius: 9px;
+    background-color: rgba(161, 160, 160, 0.494);
+    margin-bottom: 10px;
+}
+.product img {
+    border-radius: 10px;
+
+}
+.product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-height: 200px;
+}
+.products {
+    display: grid;
+    grid-template-columns: 1 1fr;
+    gap: 25px;
+}
+
 
 .whats:hover {
     color: rgb(37, 211, 102);

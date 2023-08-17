@@ -3,6 +3,12 @@
 include("source/php/db.php");
 session_start();
 
+if($_SESSION['logged']){
+    $user = $_SESSION['user'];
+    mysqli_select_db($con,$user);
+    $sql = mysqli_query($con,"SELECT * FROM cart");
+    $result = mysqli_fetch_assoc($sql);
+}
 
 if(isset($_POST['logoff'])){
     header("location: menu.php");
@@ -61,18 +67,27 @@ if(isset($_POST['logoff'])){
     <div class="container">
         <section class="products">
             <?php
-        if(isset($_SESSION['logged'])){
+        if($_SESSION['logged']){
             $user = $_SESSION['user'];
-            $id = $_SESSION['id'];
+            mysqli_select_db($con,$user);
+            $total_query = mysqli_query($con,"SELECT SUM(total) as total FROM cart");
+            $total_result = mysqli_fetch_assoc($total_query);
+            $sql = mysqli_query($con,"SELECT * FROM cart");
+            while ($product = mysqli_fetch_assoc($sql)) {
+                echo '<div class="product">';
+                echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+                echo '<div class="LanchesText">';
+                echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
+                echo '</div>';
+                echo '<h3>' . 'QUANTIDADE : ' . $product['qty'] . '<h3>';
+                echo '<div class="order">';
+                echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+                echo '<h1>'. 'TOTAL : ' . $product['total'] . '</h1>';
+                echo '</div>';
+                echo '</div>';
 
-            if(mysqli_query($con,"CREATE DATABASE IF NOT EXISTS $user")){
-                mysqli_select_db($con,"$user");
-                if(mysqli_query($con,"CREATE TABLE IF NOT EXISTS 'cart-products'('product' VARCHAR(255) NOT NULL,'price' Double NOT NULL,'qty' int NOT NULL DEFAULT 1,'image' VARCHAR(255),'total' Double)")){
-                    $sql = mysqli_query($con,"SELECT * FROM cart-products");
-                    $result = mysqli_fetch_assoc($sql);
-                    echo $result['product'];
-                }
             }
+            echo '<h3>' . $total_result['total'] . '</h3>';
         }
         else{
             echo "<li class='msgerror'>Seu Carrinho de compras esta vazio ou voce nao esta logado</li>";

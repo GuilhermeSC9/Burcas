@@ -41,10 +41,12 @@ if (isset($_GET['clicked']) && $_GET['clicked'] == 1) {
                             if ($sql_result) {
                                 // Produto já está no carrinho, incrementa a quantidade
                                 $qty_add = $sql_result['qty'] + 1;
-                                mysqli_query($con, "UPDATE cart SET qty = $qty_add WHERE id = $id");
+                                $total = $qty_add * $product_price;
+                                mysqli_query($con, "UPDATE cart SET qty = $qty_add,total = $total WHERE id = $id");
+                                
                             } else {
                                 // Produto ainda não está no carrinho, insere
-                                mysqli_query($con, "INSERT INTO cart (qty, product, price, image) VALUES (1, '$product_name', $product_price, '$product_image')");
+                                mysqli_query($con, "INSERT INTO cart (qty, product, price, image,total) VALUES (1, '$product_name', $product_price, '$product_image',$product_price)");
                             }
             
                             mysqli_select_db($con, 'menu');
@@ -206,13 +208,13 @@ catch (Exception $e){
         foreach ($fetchedProducts as $product) {
             echo '<div class="product">';
             echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
-            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
             echo '<div class="LanchesText">';
             echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
             echo '<p>' . $product['description'] . '</p>'; // Display product description
             echo '</div>';
             echo '<div class="order">';
-            echo '<a href="menu.php?id=' . $product['id'] . '"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
+            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+            echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
             echo '</div>';
             echo '</div>';
         }
