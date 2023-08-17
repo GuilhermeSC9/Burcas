@@ -1,6 +1,72 @@
 <?php 
 session_start();
 include("source/php/db.php");
+mysqli_select_db($con,'menu');
+
+if (isset($_GET['clicked']) && $_GET['clicked'] == 1) {
+    if (isset($_SESSION['user'])) {
+        $user = $_SESSION['user'];
+        if (mysqli_query($con, "CREATE DATABASE IF NOT EXISTS $user")) {
+            mysqli_select_db($con,$user);
+            if (mysqli_query($con, "CREATE TABLE IF NOT EXISTS `cart` (
+                `id` INT AUTO_INCREMENT PRIMARY KEY,
+                `product` VARCHAR(255) NOT NULL,
+                `price` DOUBLE,
+                `qty` INT NOT NULL,
+                `image` VARCHAR(255),
+                `total` DOUBLE
+            )")) {
+                try {
+                    mysqli_select_db($con, 'menu');
+            
+                    // Verifica se o ID está definido na URL
+                    if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        
+                        // Recupera informações do produto com o ID fornecido
+                        $sql = mysqli_query($con, "SELECT * FROM products WHERE id = $id");
+                        $result = mysqli_fetch_assoc($sql);
+                        
+                        if ($result) {
+                            $product_name = $result['product'];
+                            $product_price = $result['price'];
+                            $product_image = $result['image'];
+            
+                            mysqli_select_db($con, $user);
+                            
+                            // Verifica se o produto já está no carrinho
+                            $sql = mysqli_query($con, "SELECT * FROM cart WHERE id = $id");
+                            $sql_result = mysqli_fetch_assoc($sql);
+            
+                            if ($sql_result) {
+                                // Produto já está no carrinho, incrementa a quantidade
+                                $qty_add = $sql_result['qty'] + 1;
+                                mysqli_query($con, "UPDATE cart SET qty = $qty_add WHERE id = $id");
+                            } else {
+                                // Produto ainda não está no carrinho, insere
+                                mysqli_query($con, "INSERT INTO cart (qty, product, price, image) VALUES (1, '$product_name', $product_price, '$product_image')");
+                            }
+            
+                            mysqli_select_db($con, 'menu');
+                            header("Location: menu.php?success=1");
+                            exit();
+                        } else {
+                            // Produto não encontrado, redireciona para menu.php com erro
+                            header("Location: menu.php?error=1");
+                            exit();
+                        }
+                    }
+                } catch (Exception $e) {
+                    $msg = $e->getMessage();
+                    echo $msg; // Mostra uma mensagem de erro em caso de exceção
+                }
+            }
+            
+        }
+    }
+}
+
+    
 
 
 function fetchProducts($category){
@@ -28,6 +94,7 @@ function fetchProducts($category){
             PRIMARY KEY (id))");
     }
 }
+
 
 if(isset($_POST['logoff'])){
     header("location: menu.php");
@@ -101,6 +168,12 @@ catch (Exception $e){
     </header>
 
 <div class="container">
+    <div class="alert">
+        <h2><?php 
+        if(isset($_GET['success'])){
+            echo "ADICIONADO COM SUCCESSO AO CARRINHO !";
+}?></h2>
+    </div>
     <section class="Lanches">
         <h1>LANCHES</h1>
         <?php
@@ -109,13 +182,13 @@ catch (Exception $e){
         foreach ($fetchedProducts as $product) {
             echo '<div class="product">';
             echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
-            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
             echo '<div class="LanchesText">';
             echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
             echo '<p>' . $product['description'] . '</p>'; // Display product description
             echo '</div>';
             echo '<div class="order">';
-            echo '<a href="menu.php?id=' . $product['id'] . '"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
+            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+            echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
             echo '</div>';
             echo '</div>';
         }

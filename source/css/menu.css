@@ -202,8 +202,18 @@ section h1 {
     text-align: center;
     width: 100%;
 }
-
+.alert{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.alert h2{
+    text-align: center;
+    color: green;
+    background-color: rgba(0, 128, 0, 0);
+}
 .About-us {
+    height: 12px;
     text-align: center;
     justify-content: center;
 }
