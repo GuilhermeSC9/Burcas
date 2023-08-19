@@ -164,6 +164,22 @@ header {
     gap: 10px;
     max-height: 200px;
 }
+.qty{
+    color: rgb(149, 138, 138);
+}
+.total{
+    display: inline-flex;
+    text-align: end;
+    width: 90%;
+    justify-content: end;
+    color: red;
+    padding: 10px;
+}
+.buttons-div{
+    border: 2px solid;
+    justify-content: flex-end;
+    padding: 15px;
+}
 .products {
     display: grid;
     grid-template-columns: 1 1fr;

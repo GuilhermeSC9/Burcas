@@ -98,12 +98,6 @@ function fetchProducts($category){
 }
 
 
-if(isset($_POST['logoff'])){
-    header("location: menu.php");
-    $_SESSION['logged'] = false;
-    session_destroy();
-    exit();
-};
 
 
 try{
@@ -128,14 +122,15 @@ catch (Exception $e){
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="source/js/menu.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="source/css/menu.css">
     <link rel="icon" type="image/x-icon" href="source/img/burcas-fivecon.png">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
     <header>
@@ -153,8 +148,7 @@ catch (Exception $e){
             <?php
             if(isset($_SESSION['logged'])) {
                 echo '<li>' . strtoupper($_SESSION['user']) . '</li>';
-                echo "<form method='POST'>";
-                echo '<li><button class="logoff" type="submit" name="logoff" id="logoff">LOGOFF</button></li>';
+                echo '<button onclick="loggoff()">LogOff</button>';
                 echo '<li><a href="addlanche.php"> Adicionar lanche </a></li>';
             } 
             else{
@@ -201,9 +195,52 @@ catch (Exception $e){
     <section class="Porcoes">
         <br>
         <h1>Porções</h1>
-        <br>
         <?php
         $fetchedProducts = fetchProducts('Porcoes'); // Fetch the products using the function
+    
+        foreach ($fetchedProducts as $product) {
+            echo '<div class="product">';
+            echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+            echo '<div class="LanchesText">';
+            echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
+            echo '<p>' . $product['description'] . '</p>'; // Display product description
+            echo '</div>';
+            echo '<div class="order">';
+            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+            echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
+            echo '</div>';
+            echo '</div>';
+        }
+        
+        ?>
+    </section>
+    <section class="Lanches">
+        <br>
+        <h1>REFRIGERANTES</h1>
+        <?php
+        $fetchedProducts = fetchProducts('refrigerantes'); // Fetch the products using the function
+    
+        foreach ($fetchedProducts as $product) {
+            echo '<div class="product">';
+            echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+            echo '<div class="LanchesText">';
+            echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
+            echo '<p>' . $product['description'] . '</p>'; // Display product description
+            echo '</div>';
+            echo '<div class="order">';
+            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+            echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
+            echo '</div>';
+            echo '</div>';
+        }
+        
+        ?>
+    </section>
+    <section class="Lanches">
+        <br>
+        <h1>DRINKS</h1>
+        <?php
+        $fetchedProducts = fetchProducts('drinks'); // Fetch the products using the function
     
         foreach ($fetchedProducts as $product) {
             echo '<div class="product">';
@@ -233,5 +270,4 @@ catch (Exception $e){
     </header>
 </div>
 </body>
-<script src="source/js/menu.js"></script>
 </html>

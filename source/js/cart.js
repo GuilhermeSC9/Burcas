@@ -1,6 +1,19 @@
+
+
+function closeorder(){
+    $.ajax({
+        url: "source/php/changeSessionvalues.php",
+        method: "POST",
+        data: { closeOrder: "true" },
+        success: function(response) {
+            
+        }
+    });
+}
+
 function loggoff(){
     console.log('olaaaa');
-    jQuery.ajax({
+    $.ajax({
         url: "source/php/changeSessionvalues.php",
         method: "POST",
         data: { novoValor: "false" },

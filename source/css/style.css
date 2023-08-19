@@ -115,8 +115,10 @@ header{
     border-radius: 20px;
 }
 
-.container-contact{
-    margin-top: 80px;
+.container-contact {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     text-align: center;
 }
 .About-us{
@@ -126,7 +128,7 @@ header{
 .navbar-contact{
     display: flex;
 }
-.navbar-contact a{
+.navbar-contact a {
     color: var(--text-color);
     font-size: 1.1rem;
     font-weight: 500;

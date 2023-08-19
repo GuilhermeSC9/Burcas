@@ -40,6 +40,8 @@ if(isset($_POST['submit'])){
         <select name="category" id="category">
             <option value="lanches">LANCHES</option>
             <option value="porcoes">PORÇÕES</option>
+            <option value="refrigerantes">refrigerantes</option>
+            <option value="drinks">DRINKS</option>
         </select>
         <button type="submit" name="submit"> ENVIAR</button>
         <a href="menu.php">VOLTAR</a>

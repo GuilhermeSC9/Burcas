@@ -24,6 +24,8 @@ if(isset($_POST['logoff'])){
 <html lang="pt-br">
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="source/js/cart.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,8 +51,7 @@ if(isset($_POST['logoff'])){
             <?php
             if(isset($_SESSION['logged'])) {
                 echo '<li>' . strtoupper($_SESSION['user']) . '</li>';
-                echo "<form method='POST'>";
-                echo '<li><button class="logoff" type="submit" name="logoff" id="logoff">LOGOFF</button></li>';
+                echo '<button onclick="loggoff()">LogOff</button>';
                 echo '<li><a href="addlanche.php"> Adicionar lanche </a></li>';
             } 
             else{
@@ -79,7 +80,7 @@ if(isset($_POST['logoff'])){
                 echo '<div class="LanchesText">';
                 echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
                 echo '</div>';
-                echo '<h3>' . 'QUANTIDADE : ' . $product['qty'] . '<h3>';
+                echo '<h3 class="qty">' . 'QUANTIDADE :  ' . $product['qty'] . '<h3>';
                 echo '<div class="order">';
                 echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
                 echo '<h1>'. 'TOTAL : ' . $product['total'] . '</h1>';
@@ -87,12 +88,21 @@ if(isset($_POST['logoff'])){
                 echo '</div>';
 
             }
-            echo '<h3>' . $total_result['total'] . '</h3>';
+            echo '<div class="total">';
+            echo '<span>TOTAL DA CONTA : R$ </span>';
+            echo '<li>' . $total_result['total'] .  '</li>';
+            echo '</div>';
+            $_SESSION['value'] = $total_result;
         }
         else{
             echo "<li class='msgerror'>Seu Carrinho de compras esta vazio ou voce nao esta logado</li>";
         }
         ?>
+        </section>
+        <section class="buttons">
+            <div class="buttons-div">
+                <button onclick="closeorder()">CONCLUIR</button>
+            </div>
         </section>
     </div>
 
@@ -108,6 +118,5 @@ if(isset($_POST['logoff'])){
         </header>
     </div>
 </body>
-<script src="source/js/cart.js"></script>
 
 </html>
