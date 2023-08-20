@@ -6,7 +6,7 @@ function closeorder(){
         method: "POST",
         data: { closeOrder: "true" },
         success: function(response) {
-            
+            alert("feito");
         }
     });
 }

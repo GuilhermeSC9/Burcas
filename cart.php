@@ -92,7 +92,7 @@ if(isset($_POST['logoff'])){
             echo '<span>TOTAL DA CONTA : R$ </span>';
             echo '<li>' . $total_result['total'] .  '</li>';
             echo '</div>';
-            $_SESSION['value'] = $total_result;
+            $_SESSION['value'] = $total_result['total'];
         }
         else{
             echo "<li class='msgerror'>Seu Carrinho de compras esta vazio ou voce nao esta logado</li>";
