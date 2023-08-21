@@ -196,14 +196,14 @@ catch (Exception $e){
         <br>
         <h1>Porções</h1>
         <?php
-        $fetchedProducts = fetchProducts('Porcoes'); // Fetch the products using the function
+        $fetchedProducts = fetchProducts('Porcoes');
     
         foreach ($fetchedProducts as $product) {
             echo '<div class="product">';
             echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
             echo '<div class="LanchesText">';
             echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
-            echo '<p>' . $product['description'] . '</p>'; // Display product description
+            echo '<p>' . $product['description'] . '</p>';
             echo '</div>';
             echo '<div class="order">';
             echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
