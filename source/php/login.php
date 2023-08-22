@@ -45,21 +45,46 @@ if(isset($_POST['register'])){
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/source/css/login.css">
+    <script src="/source/js/login.js"></script>
+    <title>Login</title>
 </head>
 <body>
-    <form method="post">
-        <input type="text" name="username" id="" placeholder="username">
-        <input type="password" name="password" id="">
-        <button name="send">enviar</button>
-        <button name="register">regster</button>
-        <a href="/menu.php">menu</a>
-    </form>
+    <div class="container">
+        <section class="login-selector">
+            <div class="toggle-button">
+                <input type="checkbox" class="checkbox" id="toggle">
+                <label for="toggle" class="label"></label><br>
+            </div>
+        </section>
+        <div class="Sections">
+            <section id="loginSection" class="login">
+                <div class="inputs">
+                    <input type="text" name="usernameLogin" id="usernameLogin" placeholder="USERNAME"><br>
+                    <input type="password" name="passwordLogin" id="passwordLogin" placeholder="PASSWORD">
+                </div>
+                <div class="buttons">
+                    <button id="login-button">Login</button>
+                    <button id="back-button"> BACK</button>
+                </div>
+            </section>
+            <section class="registerSection" id="registerSelection">
+                <div class="inputs">
+                    <input type="text" name="username" id="username" placeholder="USERNAME"><br>
+                    <input type="password" name="password" id="password" placeholder="REGISTER"> <button id="show-pass"><img src="/source/img/show-password.png" height="20px" width="20px"alt=""></button>
+                </div>
+                <div class="buttons">
+                    <button id="login-button">Login</button>
+                    <button id="back-button"> BACK</button>
+                </div>
+            </section>
+        </div>
+    </div>
 </body>
 <script>
 
