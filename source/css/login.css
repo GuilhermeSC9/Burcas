@@ -16,11 +16,25 @@
     --main-secundary: #555555;
 }
 
-body {
-    padding: 0px;
-    background: var(--bg-color);
-    color: var(--text-color);
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("/source/img/prot-lancho.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(5px); /* Valor do raio do desfoque */
 }
+
+body {
+  padding: 0;
+  color: var(--text-color);
+}
+
 
 .toggle-button {
     display: inline-block;
@@ -39,16 +53,48 @@ body {
     grid-template-columns: 1 1fr;
     gap: 20px;
     position: relative;
-    transition: all 0.70s ease;
+    animation: loginSection 0.20s ease-in-out; 
     border: 1px solid;
 }
 .registerSection{
-    left: 0;
-    opacity: 1;
+  right: 0;
+  opacity: 1;
+  display: none;
+  grid-template-columns: 1 1fr;
+  gap: 20px;
+  position: relative;
+  animation: loginSection 0.20s ease-in-out; 
+  border: 1px solid;
+}
+.login-selector{
+  position: relative;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+@keyframes loginSection {
+  0%{
+    filter: blur(10px);
+    left: 100px;
     display: none;
-    gap: 20px;
-    position: relative;
-    transition: all 0.70s ease;
+  }
+  50%{
+    filter: blur(5px);
+    left: 50px;
+    display: grid;
+  }
+  100% {
+    filter: blur(0);
+    left: 0;
+  }
+}
+.Sections input{
+  border-radius: 10px;
+  background: none;
+  color: var(--main-color);
+}
+.Sections input::placeholder{
+  color: var(--main-color);
 }
   
   .label {
@@ -87,14 +133,26 @@ body {
 }
 .Sections {
     border: 1px solid;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1 1fr;
+    gap: 20px;
     text-align: center;
     justify-content: center;
     align-items: center;
     margin: 20px 0;
-    padding: 20px;
+    padding: 160px;
     width: 100%;
     height: 100%;
+}
+.login-register-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.loginLabel,
+.registerLabel {
+  font-size: 25px;
+  gap: 10px;
 }
 .container input {
     border: 1px solid;

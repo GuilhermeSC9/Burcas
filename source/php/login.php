@@ -56,13 +56,18 @@ if(isset($_POST['register'])){
 </head>
 <body>
     <div class="container">
-        <section class="login-selector">
-            <div class="toggle-button">
-                <input type="checkbox" class="checkbox" id="toggle">
-                <label for="toggle" class="label"></label><br>
-            </div>
-        </section>
         <div class="Sections">
+            <section class="login-selector">
+                <div class="login-register-wrapper">
+                    <span class="loginLabel" id="loginLabel">LOGIN</span>
+                    <div class="toggle-button">
+                        <input type="checkbox" class="checkbox" id="toggle">
+                        <label for="toggle" class="label"></label>
+                    </div>
+                    <label for="toggle" class="registerLabel" id="registerLabel">REGISTER</label>
+                </div>
+            </section>
+
             <section id="loginSection" class="login">
                 <div class="inputs">
                     <input type="text" name="usernameLogin" id="usernameLogin" placeholder="USERNAME"><br>
@@ -75,8 +80,8 @@ if(isset($_POST['register'])){
             </section>
             <section class="registerSection" id="registerSelection">
                 <div class="inputs">
-                    <input type="text" name="username" id="username" placeholder="USERNAME"><br>
-                    <input type="password" name="password" id="password" placeholder="REGISTER"> <button id="show-pass"><img src="/source/img/show-password.png" height="20px" width="20px"alt=""></button>
+                    <input type="text"  class="username" name="username" id="username" placeholder="USERNAME"><br>
+                    <input type="password" name="password" id="password" placeholder="REGISTER">
                 </div>
                 <div class="buttons">
                     <button id="login-button">Login</button>
