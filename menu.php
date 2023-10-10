@@ -3,6 +3,8 @@ session_start();
 include("source/php/db.php");
 mysqli_select_db($con,'menu');
 
+$logged = $_SESSION['logged'];
+
 if (isset($_GET['clicked']) && $_GET['clicked'] == 1) {
     if (isset($_SESSION['user'])) {
         $user = $_SESSION['user'];
@@ -139,6 +141,11 @@ catch (Exception $e){
             <span>Burca's</span>
         </a>
         <ul class="navbar">
+            <?php 
+            if($logged){
+                echo "<li><a href='/source/php/comandas.php'>COMANDAS</a></li>";
+            }
+            ?>
             <li><a href="#">Serviços</a></li>
             <li><a href="#">Contato</a></li>
             <li><a class="menu" href="menu.php">Cardápio</a></li>
@@ -146,7 +153,7 @@ catch (Exception $e){
         <div class="main">
             <li><a class="cart" href="cart.php"><img src="source/img/cart 30x30.png"></a>
             <?php
-            if(isset($_SESSION['logged'])) {
+            if($logged) {
                 echo '<li>' . strtoupper($_SESSION['user']) . '</li>';
                 echo '<button onclick="loggoff()">LogOff</button>';
                 echo '<li><a href="addlanche.php"> Adicionar lanche </a></li>';
