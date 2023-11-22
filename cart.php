@@ -5,6 +5,12 @@ session_start();
 
 if($_SESSION['logged']){
     $user = $_SESSION['user'];
+    if($user = "admin"){
+        $adminacess = true;
+    }
+    else{
+        $adminacess = false;
+    }
     mysqli_select_db($con,$user);
     $sql = mysqli_query($con,"SELECT * FROM cart");
     $result = mysqli_fetch_assoc($sql);
@@ -80,7 +86,7 @@ if(isset($_POST['logoff'])){
                 echo '<div class="LanchesText">';
                 echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
                 echo '</div>';
-                echo '<h3 class="qty">' . 'QUANTIDADE :  ' . $product['qty'] . '<h3>';
+                echo '<h3 class="qty">QUANTIDADE : <button id="addbutton"> + </button>' . $product['qty'] . '</h3>';
                 echo '<div class="order">';
                 echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
                 echo '<h1>'. 'TOTAL : ' . $product['total'] . '</h1>';

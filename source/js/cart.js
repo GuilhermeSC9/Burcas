@@ -22,3 +22,22 @@ function loggoff(){
         }
     });
 }
+
+function addbutton(){
+    console.log('oi0');
+    $.ajax({
+        url: "source/php/changeSessionvalues.php",
+        method: "POST",
+        data: { addbutton: "true" },
+        success: function(response) {
+            console.log('adicionar');
+        }
+    });
+}
+
+// No JavaScript
+document.getElementById('addbutton').addEventListener('click', function() {
+    console.log('ola');
+    addbutton();
+});
+

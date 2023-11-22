@@ -2,6 +2,9 @@
 session_start();
 $logged = $_SESSION['logged'];
 
+include("db.php");
+mysqli_select_db($con,"menu");
+
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +33,11 @@ $logged = $_SESSION['logged'];
             <li><a class="menu" href="menu.php">Cardápio</a></li>
         </ul>
         <div class="main">
-            <li><a class="cart" href="/cart.php"><img src="/source/img/cart30x30.png"></a>
-            </div>
+            <ul>
+                <li><a class="cart" href="/cart.php"><img src="/source/img/cart30x30.png"></a></li>
+            </ul>
+        </div>
+
         </div>
     </header>
     <section class="search-section">
@@ -41,8 +47,10 @@ $logged = $_SESSION['logged'];
     <section class="tables-section">
         <div class="tables">
             <div class="table">
-            
+                <h1>1</h1>
+                <h2><?php ?></h2>
             </div>
+
             <div class="table">
             
             </div>

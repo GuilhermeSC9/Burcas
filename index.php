@@ -1,3 +1,16 @@
+<?php 
+session_start();
+
+if(isset($_SESSION['logged'])){
+    $logado = true;
+    $user = $_SESSION['user'];
+}
+else{
+    $logado = false;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -21,10 +34,24 @@
             <li><a href="#">Serviços</a></li>
             <li><a href="#">Contato</a></li>
             <li><a href="menu.php">Cardápio</a></li>
+            <?php
+            if($logado == true){
+                echo "<li><a href='/source/php/comandas.php'>COMANDAS</a></li>";
+            }
+            ?>
         </ul>
         <div class="main">
-            <li><a href="source/php/register.php" class="user"><i class="ri-user-2-fill"></i>Sign in</a></li>
-            <li><a href="source/php/login.php">Login</a></li>
+            <?php
+            if($logado == true) {
+                echo '<li>' . strtoupper($_SESSION['user']) . '</li>';
+                echo '<button onclick="loggoff()">LogOff</button>';
+                echo '<li><a href="addlanche.php"> Adicionar lanche </a></li>';
+            }
+            else{
+                echo "<li><a href='source/php/register.php' class='user'><i class='ri-user-2-fill'></i>Sign in</a></li>";
+                echo "<li><a href='source/php/login.php'>Login</a></li>";
+            }
+            ?>
             <div class="bx bx-menu" id="menu-icon">
             </div>
         </div>

@@ -19,7 +19,7 @@ else{
         $result = mysqli_fetch_assoc($sql);
         if(password_verify($pass,$result['password'])){
             $_SESSION['logged'] = true;
-            $_SESSION['user'] = $_POST['username'];
+            $_SESSION['user'] = $user;
             $_SESSION['id'] = $result['id'];
             header("location:table.php");
             exit();

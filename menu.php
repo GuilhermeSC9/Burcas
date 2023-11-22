@@ -1,14 +1,22 @@
-<?php 
+<?php
 session_start();
 include("source/php/db.php");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 mysqli_select_db($con,'menu');
 
-$logged = $_SESSION['logged'];
+if(isset($_SESSION['logged'])){
+    $user = $_SESSION['user'];
+    echo $user;
+    $logged = $_SESSION['logged'];
+};
 
-if (isset($_GET['clicked']) && $_GET['clicked'] == 1) {
-    if (isset($_SESSION['user'])) {
-        $user = $_SESSION['user'];
-        if (mysqli_query($con, "CREATE DATABASE IF NOT EXISTS $user")) {
+
+if (isset($_GET['clicked']) && $_GET['clicked'] == 1 && $user != '') {
+    if ($user != 1) {
+        echo $user;
+        if (mysqli_query($con, "CREATE DATABASE IF NOT EXISTS $user") )  {
             mysqli_select_db($con,$user);
             if (mysqli_query($con, "CREATE TABLE IF NOT EXISTS `cart` (
                 `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,7 +70,7 @@ if (isset($_GET['clicked']) && $_GET['clicked'] == 1) {
                     }
                 } catch (Exception $e) {
                     $msg = $e->getMessage();
-                    echo $msg; // Mostra uma mensagem de erro em caso de exceção
+                    echo "IMPOSSIVEL MOSTRAR PRODUTOS ERRO 0"; // Mostra uma mensagem de erro em caso de exceção
                 }
             }
             
@@ -136,13 +144,13 @@ catch (Exception $e){
 </head>
 <body>
     <header>
-        <a href="main.html" class="logo">
+        <a href="/.html" class="logo">
             <img src="source/img/BurcasLogo.png" width="50px" height="50px" alt="Burca's">
             <span>Burca's</span>
         </a>
         <ul class="navbar">
             <?php 
-            if($logged){
+            if($logged == true){
                 echo "<li><a href='/source/php/comandas.php'>COMANDAS</a></li>";
             }
             ?>
@@ -151,9 +159,9 @@ catch (Exception $e){
             <li><a class="menu" href="menu.php">Cardápio</a></li>
         </ul>
         <div class="main">
-            <li><a class="cart" href="cart.php"><img src="source/img/cart 30x30.png"></a>
+            <li><a class="cart" href="cart.php"><img src="source/img/cart30x30.png"></a>
             <?php
-            if($logged) {
+            if($logged == true) {
                 echo '<li>' . strtoupper($_SESSION['user']) . '</li>';
                 echo '<button onclick="loggoff()">LogOff</button>';
                 echo '<li><a href="addlanche.php"> Adicionar lanche </a></li>';
@@ -181,19 +189,23 @@ catch (Exception $e){
         <h1>LANCHES</h1>
         <?php
         $fetchedProducts = fetchProducts('lanches'); // Fetch the products using the function
-    
-        foreach ($fetchedProducts as $product) {
-            echo '<div class="product">';
-            echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
-            echo '<div class="LanchesText">';
-            echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
-            echo '<p>' . $product['description'] . '</p>'; // Display product description
-            echo '</div>';
-            echo '<div class="order">';
-            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
-            echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
-            echo '</div>';
-            echo '</div>';
+        try {
+            foreach ($fetchedProducts as $product) {
+                echo '<div class="product">';
+                echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+                echo '<div class="LanchesText">';
+                echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
+                echo '<p>' . $product['description'] . '</p>'; // Display product description
+                echo '</div>';
+                echo '<div class="order">';
+                echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+                echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="/source/img/cart30x30.png" width="40px" alt="shopping-cart"></a>';
+                echo '</div>';
+                echo '</div>';
+            }
+        }
+        catch (Exception $error){
+            echo "IMPOSSIVEL DEMONSTRAR PRODUTOS ERRO NUMERO 0";
         }
         
         ?>

@@ -44,4 +44,8 @@ if(isset($_POST['closeOrder'])){
         echo "Exception: " . $e->getMessage();
     } 
 }
+
+if(isset($_POST['addbutton'])){
+    console.log('aaa');
+}
 ?>
