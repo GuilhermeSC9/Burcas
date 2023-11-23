@@ -5,6 +5,33 @@ $logged = $_SESSION['logged'];
 include("db.php");
 mysqli_select_db($con,"menu");
 
+function fetchtablename($number) {
+
+    global $con;
+
+    // Use prepared statements para evitar SQL injection
+    $query = "SELECT name FROM tables WHERE number = ?";
+    $stmt = mysqli_prepare($con, $query);
+
+    // Vincular o parâmetro
+    mysqli_stmt_bind_param($stmt, 'i', $number);
+
+    // Executar a consulta
+    mysqli_stmt_execute($stmt);
+
+    // Obter o resultado
+    mysqli_stmt_bind_result($stmt, $nome);
+
+    // Fetch o resultado
+    mysqli_stmt_fetch($stmt);
+
+    // Fechar a instrução preparada
+    mysqli_stmt_close($stmt);
+
+    return $nome; // Retorna o nome ou null se não encontrado
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -45,61 +72,32 @@ mysqli_select_db($con,"menu");
         <img src="/source/img/search.png" width="30px" heigth="15px">
     </section>
     <section class="tables-section">
-        <div class="tables">
-            <div class="table">
-                <h1>1</h1>
-                <h2><?php ?></h2>
-            </div>
-
-            <div class="table">
+        <div class="tables" id="table">
+            <?php
+            $table_number = 0;
+            while ($table_number < 25) {
+                $table_number++;
+                $nome_tabela = fetchtablename($table_number);
+                echo "<a href='table_page.php?table_number=$table_number&?table_name=$nome_tabela'>";
+                echo "<div class='table' style='background-color: " . (isEmptyTable($table_number) ? "red" : "green") . ";'>";
+                echo "<h1>" . $table_number . "</h1>";
             
-            </div>
-            <div class="table">
             
-            </div>
-            <div class="table">
+                // Verifica se o nome da tabela está vazio
+                echo "<h2 id='name'>" . ($nome_tabela == null || empty($nome_tabela) ? "VAZIA" : $nome_tabela) . "</h2>";
             
-            </div>
-            <div class="table">
+                echo "</div>";
+                echo "</a>";
+            }
             
-            </div>
-            <div class="table">
+            function isEmptyTable($table_number) {
+                $nome_tabela = fetchtablename($table_number);
+                return $nome_tabela == null || empty($nome_tabela);
+            }
             
-            </div>
-            <div class="table">
-            
-            </div>
-            <div class="table">
-            
-            </div>
-            <div class="table">
-            
-            </div>
-            <div class="table">
-            
-            </div>
-            <div class="table">
-            
-            </div>
-            <div class="table">
-            
-            </div>
-            <div class="table">
-            
-            </div>
-            <div class="table">
-            
-            </div>
-            <div class="table">
-            
-            </div>
-            <div class="table">
-            
-            </div>
-            <div class="table">
-            
-            </div>
+            ?>
         </div>
     </section>
 </body>
+
 </html>

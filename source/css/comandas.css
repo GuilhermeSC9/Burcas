@@ -18,6 +18,7 @@
 }
 
 body {
+    overflow-x: hidden;
     padding: 0px;
     margin: auto;
     background: var(--bg-color);
@@ -81,19 +82,22 @@ header {
     color: var(--main-color);
 }
 .table{
-    width: 80px;
-    height: 80px;
+    width: 150px;
+    height: 120px;
     border: 2px solid black;
     justify-content: center;
     text-align: center;
-}
-.table h1{
+    overflow: hidden;
+    cursor: pointer;
     color: black;
+}
+.table:hover{
+    background-color: gray;
 }
 .tables{
     display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(13, 90px);
+    grid-gap: 25px;
+    grid-template-columns: repeat(8, 1fr);
     grid-template-rows: auto;
 }
 .tables-section{
