@@ -1,12 +1,20 @@
 <?php
 session_start();
+global $con;
 $logged = $_SESSION['logged'];
 
 include("db.php");
-mysqli_select_db($con,"menu");
+mysqli_select_db($con, "menu");
+
+
+function fetchtablexists($number) {
+    global $con;
+    $sql = mysqli_query($con, "SELECT * FROM tables WHERE number = $number");
+    $result = mysqli_fetch_assoc($sql);
+    return empty($result);
+}
 
 function fetchtablename($number) {
-
     global $con;
 
     // Use prepared statements para evitar SQL injection
@@ -30,13 +38,13 @@ function fetchtablename($number) {
 
     return $nome; // Retorna o nome ou null se não encontrado
 }
-
-
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/source/js/table_page.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +52,7 @@ function fetchtablename($number) {
     <title>comandas</title>
 </head>
 <body>
-<header>
+    <header>
         <a href="main.html" class="logo">
             <img src="/source/img/BurcasLogo.png" width="50px" height="50px" alt="Burca's">
             <span>Burca's</span>
@@ -64,8 +72,6 @@ function fetchtablename($number) {
                 <li><a class="cart" href="/cart.php"><img src="/source/img/cart30x30.png"></a></li>
             </ul>
         </div>
-
-        </div>
     </header>
     <section class="search-section">
         <div><input type="text" name="search" id="search"></div>
@@ -74,30 +80,28 @@ function fetchtablename($number) {
     <section class="tables-section">
         <div class="tables" id="table">
             <?php
-            $table_number = 0;
+            $table_number = 0; // Inicia do zero
             while ($table_number < 25) {
                 $table_number++;
+                
+                // Verifica se a tabela existe e determina a cor da tabela
+                $table_exists = fetchtablexists($table_number);
+                $table_color = $table_exists ? "red" : "green";
+
+                // Obtém o nome da tabela
                 $nome_tabela = fetchtablename($table_number);
-                echo "<a href='table_page.php?table_number=$table_number&?table_name=$nome_tabela'>";
-                echo "<div class='table' style='background-color: " . (isEmptyTable($table_number) ? "red" : "green") . ";'>";
-                echo "<h1>" . $table_number . "</h1>";
-            
-            
-                // Verifica se o nome da tabela está vazio
-                echo "<h2 id='name'>" . ($nome_tabela == null || empty($nome_tabela) ? "VAZIA" : $nome_tabela) . "</h2>";
-            
+
+                // Exibe a tabela
+                echo "<a class='table-link' data-tablenumber='$table_number' onclick='adicionarurl(this)'>";
+                echo "<div class='table' style='background-color: $table_color;'>";
+                echo "<h1>$table_number</h1>";
+                echo "<h2 id='name'>" . ($nome_tabela == null || empty($nome_tabela) ? "SEM NOME" : $nome_tabela) . "</h2>";
+                echo "<input type='hidden' value='$nome_tabela' id='tablename'>";
                 echo "</div>";
                 echo "</a>";
             }
-            
-            function isEmptyTable($table_number) {
-                $nome_tabela = fetchtablename($table_number);
-                return $nome_tabela == null || empty($nome_tabela);
-            }
-            
             ?>
         </div>
     </section>
 </body>
-
 </html>

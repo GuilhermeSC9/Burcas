@@ -26,19 +26,19 @@ if (isset($_POST['closeOrder'])) {
         $name = $_SESSION['user'];
         $data = date("Y-m-d H:i:s");
 
-        // Use prepared statements to prevent SQL injection
+        
         $insertQuery = "INSERT INTO orders (name, value, date) VALUES (?, ?, ?)";
         $stmt = mysqli_prepare($con, $insertQuery);
-        mysqli_stmt_bind_param($stmt, "sds", $name, $value, $data); // Assuming 's' for string, 'd' for double
+        mysqli_stmt_bind_param($stmt, "sds", $name, $value, $data); 
 
-        // Execute the prepared statement
+        
         if (mysqli_stmt_execute($stmt)) {
             echo "Order inserted successfully!";
         } else {
             echo "Error inserting order: " . mysqli_error($con);
         }
 
-        // Close the prepared statement
+        
         mysqli_stmt_close($stmt);
     } catch (Exception $e) {
         echo "Exception: " . $e->getMessage();
@@ -69,4 +69,45 @@ if (isset($_POST['criarMesa'])) {
     // Close the prepared statement
     mysqli_stmt_close($stmt);
 }
+
+if(isset($_POST['product'])){
+    $product = $_POST['product'];
+    $tablenumber = $_POST['tablenumber'];
+    mysqli_select_db($con,"table$tablenumber");
+    if(mysqli_query($con,"INSERT INTO products(product) VALUES($product)"));
+    
+}
+
+
+if (isset($_POST['abrirMesa'])) {
+    $tablenumber = $_POST['table_number'];
+    $table_name = $_POST['table_name'];
+    mysqli_select_db($con, "menu");
+
+    ## CHECK IF TABLE EXISTS
+    $sql = mysqli_query($con, "SELECT * FROM tables WHERE number = $tablenumber");
+    $result = mysqli_fetch_assoc($sql);
+
+    if ($table_name == '' && $result == '') {
+        mysqli_query($con, "INSERT INTO tables (number) VALUES ($tablenumber)");
+
+        // Verificar se houve erro na inserção
+        if (mysqli_errno($con)) {
+            $response = array("status" => "error", "message" => "Error: " . mysqli_error($con));
+        } else {
+            $response = array("status" => "success", "message" => "Table number inserted successfully!");
+        }
+        
+        // Fechar a conexão
+        mysqli_close($con);
+        
+        // Adicionando um parâmetro extra ao response
+    }
+    $response["additional_parameter"] = "MESA $tablenumber JA EXISTE";
+        
+    // Convertendo o array associativo em JSON e enviando de volta ao cliente
+    echo json_encode($response);
+    exit;
+}
+
 ?>

@@ -92,7 +92,13 @@ function fetchProducts($category){
             $products[] = $row; // Add each product to the array
         }
         
-        return $products; // Return the array of products
+        if($products == null){
+            $products = false;
+            return $products;
+        }
+        else{
+            return $products; // Return the array of products
+        }
     }
     catch (Exception $e){
         $msg = $e->getMessage();
@@ -190,18 +196,20 @@ catch (Exception $e){
         <?php
         $fetchedProducts = fetchProducts('lanches'); // Fetch the products using the function
         try {
-            foreach ($fetchedProducts as $product) {
-                echo '<div class="product">';
-                echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
-                echo '<div class="LanchesText">';
-                echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
-                echo '<p>' . $product['description'] . '</p>'; // Display product description
-                echo '</div>';
-                echo '<div class="order">';
-                echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
-                echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="/source/img/cart30x30.png" width="40px" alt="shopping-cart"></a>';
-                echo '</div>';
-                echo '</div>';
+            if($fetchedProducts != null){
+                foreach ($fetchedProducts as $product) {
+                    echo '<div class="product">';
+                    echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+                    echo '<div class="LanchesText">';
+                    echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
+                    echo '<p>' . $product['description'] . '</p>'; // Display product description
+                    echo '</div>';
+                    echo '<div class="order">';
+                    echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+                    echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="/source/img/cart30x30.png" width="40px" alt="shopping-cart"></a>';
+                    echo '</div>';
+                    echo '</div>';
+                }
             }
         }
         catch (Exception $error){
@@ -217,18 +225,25 @@ catch (Exception $e){
         <?php
         $fetchedProducts = fetchProducts('Porcoes');
     
-        foreach ($fetchedProducts as $product) {
-            echo '<div class="product">';
-            echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
-            echo '<div class="LanchesText">';
-            echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
-            echo '<p>' . $product['description'] . '</p>';
-            echo '</div>';
-            echo '<div class="order">';
-            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
-            echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
-            echo '</div>';
-            echo '</div>';
+        try {
+            if($fetchedProducts != null){
+                foreach ($fetchedProducts as $product) {
+                    echo '<div class="product">';
+                    echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+                    echo '<div class="LanchesText">';
+                    echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
+                    echo '<p>' . $product['description'] . '</p>'; // Display product description
+                    echo '</div>';
+                    echo '<div class="order">';
+                    echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+                    echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="/source/img/cart30x30.png" width="40px" alt="shopping-cart"></a>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            }
+        }
+        catch (Exception $error){
+            echo "IMPOSSIVEL DEMONSTRAR PRODUTOS ERRO NUMERO 0";
         }
         
         ?>
@@ -239,18 +254,25 @@ catch (Exception $e){
         <?php
         $fetchedProducts = fetchProducts('refrigerantes'); // Fetch the products using the function
     
-        foreach ($fetchedProducts as $product) {
-            echo '<div class="product">';
-            echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
-            echo '<div class="LanchesText">';
-            echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
-            echo '<p>' . $product['description'] . '</p>'; // Display product description
-            echo '</div>';
-            echo '<div class="order">';
-            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
-            echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
-            echo '</div>';
-            echo '</div>';
+        try {
+            if($fetchedProducts != null){
+                foreach ($fetchedProducts as $product) {
+                    echo '<div class="product">';
+                    echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+                    echo '<div class="LanchesText">';
+                    echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
+                    echo '<p>' . $product['description'] . '</p>'; // Display product description
+                    echo '</div>';
+                    echo '<div class="order">';
+                    echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+                    echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="/source/img/cart30x30.png" width="40px" alt="shopping-cart"></a>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            }
+        }
+        catch (Exception $error){
+            echo "IMPOSSIVEL DEMONSTRAR PRODUTOS ERRO NUMERO 0";
         }
         
         ?>
@@ -261,18 +283,25 @@ catch (Exception $e){
         <?php
         $fetchedProducts = fetchProducts('drinks'); // Fetch the products using the function
     
-        foreach ($fetchedProducts as $product) {
-            echo '<div class="product">';
-            echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
-            echo '<div class="LanchesText">';
-            echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
-            echo '<p>' . $product['description'] . '</p>'; // Display product description
-            echo '</div>';
-            echo '<div class="order">';
-            echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
-            echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="source/img/cart 30x30.png" width="40px" alt="shopping-cart"></a>';
-            echo '</div>';
-            echo '</div>';
+        try {
+            if($fetchedProducts != null){
+                foreach ($fetchedProducts as $product) {
+                    echo '<div class="product">';
+                    echo '<img src="' . $product['image'] . '" height="120px" width="120px" alt="lanche">';
+                    echo '<div class="LanchesText">';
+                    echo '<h3>' . $product['product'] . ' - <span class="price">' ."R$". $product['price'] . '</span></h3>'; // Display product name and price together
+                    echo '<p>' . $product['description'] . '</p>'; // Display product description
+                    echo '</div>';
+                    echo '<div class="order">';
+                    echo '<input type="hidden" name="id" value="' . $product['id'] . '">';
+                    echo '<a href="menu.php?id=' . $product['id'] . '&clicked=1"><img src="/source/img/cart30x30.png" width="40px" alt="shopping-cart"></a>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            }
+        }
+        catch (Exception $error){
+            echo "IMPOSSIVEL DEMONSTRAR PRODUTOS ERRO NUMERO 0";
         }
         
         ?>

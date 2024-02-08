@@ -7,9 +7,11 @@ if($_SESSION['logged']!= true){
 }
 else {
     $table = $_GET['table_number'];
-    $query = "CREATE DATABASE IF NOT EXISTS `menu$table`";
+    $name = $_GET['table_name'];
+    echo $name;
+    $query = "CREATE DATABASE IF NOT EXISTS `table$table`";
     if (mysqli_query($con, $query)) {
-        if (isset($_GET['table_name']) && !empty($_GET['table_name'])) {
+        if (isset($table) && $name == 1) {
             echo "GOSTARIA DE CRIAR A COMANDA ?";
             echo "<div class='section'>";
             echo "<div class='inputs'>";
@@ -19,7 +21,22 @@ else {
             echo "</div>";
             echo "</div>";
         } else {
-            mysqli_select_db($con, "menu$table");
+            mysqli_select_db($con, "table$table");
+            if(mysqli_query($con,"CREATE TABLE IF NOT EXISTS products (id INT AUTO_INCREMENT,product varchar(255),image varchar(255),price DOUBLE,qty INT NOT NULL DEFAULT 1,total DOUBLE, PRIMARY KEY(id))"))
+            {
+                $sql = mysqli_query($con, "SELECT * from products");
+                $result = mysqli_fetch_assoc($sql);
+                if(!empty($result)){
+                    echo $result['product'];
+                }
+                else{
+                    echo "SEM PRODUTO";
+                    echo "<div class='inputs'>";
+                    echo "<input type='text' id='product_add' placeholder='ADICIONAR'>";
+                    echo "<button onclick='addProduct()'>ADICIONAR</button>";
+                    echo "</div>";
+                }
+            };
         }
     }
     
