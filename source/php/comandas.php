@@ -1,7 +1,6 @@
 <?php
 session_start();
 global $con;
-$logged = $_SESSION['logged'];
 
 include("db.php");
 mysqli_select_db($con, "menu");
@@ -79,6 +78,7 @@ function fetchtablename($number) {
     </section>
     <section class="tables-section">
         <div class="tables" id="table">
+            <div class="no-results" id="no-results" style="display:none">NADA FOI ENCONTRADO !!</div>
             <?php
             $table_number = 0; // Inicia do zero
             while ($table_number < 25) {
