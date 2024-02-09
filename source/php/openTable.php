@@ -1,10 +1,15 @@
 <?php
 session_start();
+include("db.php");
 global $con;
 $table_number = $_GET['tableNumber'];
 
-include("db.php");
-mysqli_select_db($con, "menu");
+$tableDB = "Table " . $tableNumber;
+mysqli_query($con,"CREATE DATABASE IF NOT EXISTS $tableDB");
+if(mysqli_errno($con)){
+    
+}
+
 
 ?>
 

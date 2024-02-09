@@ -54,13 +54,7 @@ if (isset($_POST['abrirMesa'])) {
         } else {
             $response = array("status" => "success", "message" => "Table number inserted successfully!");
         }
-        $tableDB = "Table " . $tablenumber;
-        mysqli_query($con,"CREATE DATABASE IF NOT EXISTS $tableDB");
-        if (mysqli_errno($con)) {
-            $response = array("status" => "error", "message" => "Erro ao criar o banco de dados adicional: " . mysqli_error($con));
-            echo json_encode($response);
-            exit;
-        }
+
     } else {
         $response = array("status" => "error", "message" => "MESA $tablenumber JA EXISTE");
     }
