@@ -47,14 +47,14 @@ if (isset($_POST['abrirMesa'])) {
     $result = mysqli_fetch_assoc($sql);
 
     if ($table_name == '' && $result == '') {
-        mysqli_query($con, "INSERT INTO tables (number,name) VALUES ($tablenumber,'Sem Nome')");
+        mysqli_query($con, "INSERT INTO tables (number) VALUES ($tablenumber)");
+    
         // Verificar se houve erro na inserção
         if (mysqli_errno($con)) {
             $response = array("status" => "error", "message" => "Erro ao inserir a mesa: " . mysqli_error($con));
         } else {
             $response = array("status" => "success", "message" => "Table number inserted successfully!");
         }
-
     } else {
         $response = array("status" => "error", "message" => "MESA $tablenumber JA EXISTE");
     }

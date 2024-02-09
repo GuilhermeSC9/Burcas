@@ -35,8 +35,10 @@ function fetchtablename($number) {
     // Fechar a instrução preparada
     mysqli_stmt_close($stmt);
 
+
     return $nome; // Retorna o nome ou null se não encontrado
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -92,11 +94,17 @@ function fetchtablename($number) {
                 $nome_tabela = fetchtablename($table_number);
 
                 // Exibe a tabela
-                echo "<a class='table-link' data-tablenumber='$table_number' onclick='adicionarurl(this)'>";
+                echo "<a class='table-link' data-tablenumber='$table_number' data-tablename='$nome_tabela' onclick='adicionarurl(this)'>";
                 echo "<div class='table' style='background-color: $table_color;'>";
                 echo "<h1>$table_number</h1>";
-                echo "<h2 id='name'>" . ($nome_tabela == null || empty($nome_tabela) ? "SEM NOME" : $nome_tabela) . "</h2>";
-                echo "<input type='hidden' value='$nome_tabela' id='tablename'>";
+                echo "<input type='hidden' class='table-link' data-tablename='$nome_tabela'>";
+                echo "<h2>" . ($nome_tabela == null || empty($nome_tabela) ? "SEM NOME" : $nome_tabela) . "</h2>";
+                if($nome_tabela == null){
+                    echo "NADA";
+                }
+                else{
+                    echo $nome_tabela;
+                }
                 echo "</div>";
                 echo "</a>";
             }

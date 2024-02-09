@@ -1,5 +1,14 @@
 var canOpenTable = false;
 
+
+$(document).ready(function() {
+    console.log("jQuery está sendo executado!");
+// Outras operações com jQuery aqui...
+});
+
+
+
+
 $(document).ready(function() {
     $('#search').on('input', function() {
         var searchText = $(this).val().toLowerCase().trim();
@@ -9,10 +18,11 @@ $(document).ready(function() {
         noResultsMessage.hide();
 
         $('.table-link').each(function() {
-            var tableNumber = $(this).data('tablenumber').toString();
+            var tableNumber = $(this).attr('data-tablenumber'); // Usando attr() em vez de data()
+            console.log("TABLE NUMBER SEARCH " + tableNumber);
             var tableName = $(this).find('h2').text().toLowerCase();
 
-            if (tableNumber.includes(searchText) || tableName.includes(searchText)) {
+            if (tableNumber && tableNumber.toString().includes(searchText) || tableName.includes(searchText)) {
                 $(this).show();
             } else {
                 $(this).hide();
@@ -22,18 +32,25 @@ $(document).ready(function() {
         var visibleTables = $('#table').find('.table-link:visible').length;
         if (visibleTables === 0 && searchText !== '') {
             noResultsMessage.show();
+        } else {
+            noResultsMessage.hide(); // Certifique-se de ocultar a mensagem se houver resultados visíveis
         }
     });
 });
 
+
 function adicionarurl(element) {
+    var tablename = element.getAttribute('data-tablename');
     var tablenumber = element.getAttribute('data-tablenumber');
+
+
+
+
     if (!tablenumber) {
         console.error('Data attribute "data-tablenumber" not found.');
         return;
     }
-
-    var tablename = document.getElementById('tablename').value;
+    console.log('esse e o nome com n ' + tablename);
     var urlAtual = window.location.href;
     var novoValor1 = tablenumber;
     var novoValor2 = tablename;
@@ -44,7 +61,7 @@ function adicionarurl(element) {
         novoUrl += '?' + novosParametros;
         window.history.replaceState(null, null, novoUrl);
     }
-    if(!tablename){
+    if(tablename == ''){
         var openPopup = confirm("Deseja adicionar um nome para a mesa?");
     if (openPopup) {
         var tableName = prompt("DIGITE O NOME DA MESA", "");
@@ -70,19 +87,20 @@ function adicionarurl(element) {
     
                 if (response == errorMessage) {
                     console.log("Mesa já existe.");
-                } else {
-                        if (tableName !== null) {
-                            jQuery.ajax({
-                                url: "changeSessionvalues.php",
-                                method: "POST",
-                                data: { addTableName: "True", tableNumber: tablenumber, tableName: tableName },
-                                success: function(response) {
-                                    console.log(response);
-                                    window.location.href = "/source/php/openTable.php?tableNumber="+ tablenumber;
-                                }
-                            });
-                        }
+                }
+                else {
+                    if (tableName !== null) {
+                        jQuery.ajax({
+                            url: "changeSessionvalues.php",
+                            method: "POST",
+                            data: { addTableName: "True", tableNumber: tablenumber, tableName: tableName },
+                            success: function(response) {
+                                console.log(response);
+                                window.location.href = "/source/php/openTable.php?tableNumber="+ tablenumber;
+                            }
+                        });
                     }
+                }
                 },
 
             error: function(xhr, status, error) {

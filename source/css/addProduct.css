@@ -94,11 +94,18 @@ header {
 .table:hover{
     background-color: gray;
 }
+.qty{
+    width: 10px;
+    height: 10px;
+}
 .tables{
     display: grid;
-    grid-gap: 25px;
-    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 30px;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
+    text-align: center;
+    justify-content: center;
 }
 .tables-section{
     padding: 30px;
@@ -174,6 +181,7 @@ header {
     }
     .tables {
         display: grid;
+        width: 100%;
         grid-template-columns: repeat(3, minmax(100px, 1fr)); /* Ajuste a largura mínima e máxima das mesas conforme necessário */
         grid-gap: 10px; /* Ajuste a margem entre as mesas conforme necessário */
     }
