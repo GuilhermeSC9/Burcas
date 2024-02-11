@@ -13,7 +13,7 @@ $tableDB = "Table_" . $table_number;
 <html lang="pt-br">
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/source/js/openTable.js"></script>
+    <script src="/source/js/addProduct.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,18 +57,28 @@ $tableDB = "Table_" . $table_number;
             <?php
                 mysqli_select_db($con,'menu');
                 $sql = mysqli_query($con,"SELECT * FROM products");
+                echo "<h1></h1>";
+                echo "<h1>PRODUTO:</h1>";
+                echo "<h1>PRECO:</h1>";
+                echo "<h1>QUANTIDADE:</h1>";
                 if(mysqli_num_rows($sql) > 0){
                     while($row = mysqli_fetch_assoc($sql)){
                     $product_name = $row['product'];
                     $product_price = $row['price'];
                     $product_image = $row['image'];
-                    echo "<img src='$product_image' width=100px height=100px>";
+                    $product_id = $row['id'];
+                    echo "<img src='$product_image' class='skip-first-column' width=100px height=100px>";
                     echo "<h1> $product_name </h1>";
                     echo "<h2> $product_price </h2>";
+                    echo "<input type='hidden' id='productID' value='$product_id'>";
+                    echo "<div class='buttonAdd'>";
                     echo "<select class='qty' name='quantidade' id='qty'>";
                     for ($i = 1; $i <= 10; $i++) {
                         echo "<option value='$i'>$i</option>";
                     }
+                    echo "</select>";
+                    echo "<button id='buttonAdd' onclick='addProduct()'> Adicionar </button>";
+                    echo "</div>";
                     }
                 }
             ?>

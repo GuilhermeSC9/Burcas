@@ -95,17 +95,26 @@ header {
     background-color: gray;
 }
 .qty{
-    width: 10px;
-    height: 10px;
+    width: 50px;
+    height: 50px;
 }
 .tables{
     display: grid;
     grid-gap: 30px;
+    padding: 10px;
     width: 100%;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
     text-align: center;
-    justify-content: center;
+    align-items: center;
+    justify-items: start;
+}
+.tables h1{
+    text-align: center;
+}
+.tables img{
+    padding-left: 10px;
+    right: 10px;
 }
 .tables-section{
     padding: 30px;
@@ -150,6 +159,22 @@ header {
 .search-section input:focus{
     border: 2px solid black;
 }
+
+.buttonAdd{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+.buttonAdd button{
+    background-color: rgb(43, 243, 43);
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+}
+.buttonAdd button:hover{
+    background-color: rgba(0, 128, 0, 0.27);
+}
+/* Adicione esta regra de mídia para dispositivos móveis */
 /* Adicione esta regra de mídia para dispositivos móveis */
 @media (max-width: 768px) {
     header {
@@ -158,7 +183,7 @@ header {
 
     .navbar {
         width: 100%;
-        top: 70px; /* Ajuste conforme necessário */
+        top: 70px;
         height: auto;
         flex-direction: column;
         align-items: center;
@@ -173,22 +198,35 @@ header {
         margin: 12px 0;
         padding: 0px;
     }
+
     .tables-section {
         padding: 30px;
         margin: auto;
         display: flex;
-        justify-content: center; /* Alterado de 'flex-start' para 'center' */
+        justify-content: center;
     }
+
     .tables {
         display: grid;
         width: 100%;
-        grid-template-columns: repeat(3, minmax(100px, 1fr)); /* Ajuste a largura mínima e máxima das mesas conforme necessário */
-        grid-gap: 10px; /* Ajuste a margem entre as mesas conforme necessário */
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* Defina as colunas para ocupar o espaço disponível */
+        grid-gap: 10px;
+        font-size: 9px;
+    }
+    .tables img{
+        display: none;
+    }
+
+    .skip-first-column {
+        grid-column-start: 2; /* Define a segunda coluna para ocupar o espaço da primeira coluna */
     }
 
     .table {
-        width: 100px; /* Ajuste a largura das mesas conforme necessário */
+        width: 100px;
         height: 80px;
-        font-size: 9px; /* Ajuste o tamanho da fonte das mesas conforme necessário */
+    }
+
+    .tables img{
+        display: none;
     }
 }

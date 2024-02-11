@@ -99,12 +99,6 @@ function fetchtablename($number) {
                 echo "<h1>$table_number</h1>";
                 echo "<input type='hidden' class='table-link' data-tablename='$nome_tabela'>";
                 echo "<h2>" . ($nome_tabela == null || empty($nome_tabela) ? "SEM NOME" : $nome_tabela) . "</h2>";
-                if($nome_tabela == null){
-                    echo "NADA";
-                }
-                else{
-                    echo $nome_tabela;
-                }
                 echo "</div>";
                 echo "</a>";
             }
