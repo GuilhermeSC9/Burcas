@@ -1,5 +1,6 @@
 <?php
 include('db.php');
+$response = "";
 
 
 if(isset($_POST['deleteDB'])){
@@ -21,5 +22,42 @@ if(isset($_POST['deleteDB'])){
         }
     }
     echo json_encode($response);
+}
+
+
+
+if(isset($_POST['addProduct'])){
+    $productID = $_POST['productID'];
+    $quantity = $_POST['Quantity'];
+    $observation = $_POST['Observation'];
+    $tableID = $_POST['tableNumber'];
+    mysqli_select_db($con,'menu');
+
+    $sql = mysqli_query($con,"SELECT * FROM products WHERE id = $productID");
+    if(mysqli_errno($con)){
+        $response = mysqli_error();
+    }
+    else{
+        $result = mysqli_fetch_assoc($sql);
+        $product_price = $result['price'];
+        $product_image = $result['image'];
+        $product_name = $result['product'];
+        mysqli_select_db($con,'table_' . $tableID);
+        $sql_qty = mysqli_query($con,"SELECT * FROM products WHERE product = '$product_name'");
+        $result_qty = mysqli_fetch_assoc($sql_qty);
+        if($result_qty !== null){
+            $qtynow = $result_qty['qty'];
+            $moreQTY =  $qtynow + $quantity;
+            mysqli_query($con,"UPDATE products SET qty = $moreQTY WHERE product = $product_name");
+            if(mysqli_errno($con)){
+                $response = " ERRO AO DAR UPDATE NO QTY" . mysqli_error();
+            }
+            else{
+                $response = "SUCESSO ALTERANDO QTTY";
+            }
+        }
+        mysqli_query($con,"INSERT INTO products (product,image,price,qty) VALUES ('$product_name','$product_image',$product_price,$quantity)");
+        echo json_encode($response);
+    }
 }
 ?>

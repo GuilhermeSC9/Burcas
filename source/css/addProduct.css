@@ -109,7 +109,11 @@ header {
     align-items: center;
     justify-items: start;
 }
-.tables h1{
+
+.productsTables{
+    border-bottom: 1px solid #ccc; /* Adiciona uma borda inferior de cor cinza */
+    padding-bottom: 5px; /* Adiciona um espaçamento na parte inferior */
+    margin-bottom: 10px; /* Adiciona um espaçamento na parte inferior */
     text-align: center;
 }
 .tables img{
@@ -161,9 +165,11 @@ header {
 }
 
 .buttonAdd{
+    width: 100%;
     display: flex;
-    gap: 20px;
-    justify-content: space-between;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .buttonAdd button{
     background-color: rgb(43, 243, 43);
@@ -173,6 +179,14 @@ header {
 }
 .buttonAdd button:hover{
     background-color: rgba(0, 128, 0, 0.27);
+}
+textarea{
+    background: none;
+    border: 1px solid black;
+
+}
+select{
+    background-color: rgba(0, 128, 0, 0.219);
 }
 /* Adicione esta regra de mídia para dispositivos móveis */
 /* Adicione esta regra de mídia para dispositivos móveis */
@@ -200,33 +214,31 @@ header {
     }
 
     .tables-section {
-        padding: 30px;
+        grid-template-columns: repeat(1, 1fr);
+        border-top: 5px solid black;
+        padding: 10px;
+        width: 100%;
         margin: auto;
-        display: flex;
+        display: grid;
         justify-content: center;
     }
 
     .tables {
         display: grid;
         width: 100%;
-        grid-template-columns: repeat(3, minmax(0, 1fr)); /* Defina as colunas para ocupar o espaço disponível */
-        grid-gap: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* Alteramos para 2 colunas */
+        grid-column-gap: 10px;
+        grid-row-gap: 50px;
         font-size: 9px;
-    }
-    .tables img{
-        display: none;
-    }
-
-    .skip-first-column {
-        grid-column-start: 2; /* Define a segunda coluna para ocupar o espaço da primeira coluna */
+        justify-items: stretch;
     }
 
     .table {
-        width: 100px;
+        width: 100%; /* Ajusta a largura da tabela para ocupar a largura total */
         height: 80px;
     }
 
-    .tables img{
-        display: none;
+    .tables img {
+        display: none; /* Oculta as imagens em dispositivos móveis */
     }
 }

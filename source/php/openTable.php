@@ -12,7 +12,7 @@ if(mysqli_errno($con)){
 }
 else{
     mysqli_select_db($con,$tableDB);
-    mysqli_query($con,"CREATE TABLE IF NOT EXISTS products (product VARCHAR(255) NOT NULL,price DOUBLE NOT NULL,image VARCHAR(255) NOT NULL,id INT AUTO_INCREMENT PRIMARY KEY)");
+    mysqli_query($con,"CREATE TABLE IF NOT EXISTS products (product VARCHAR(255) NOT NULL,qty INT NOT NULL DEFAULT 1,price DOUBLE NOT NULL,image VARCHAR(255) NOT NULL,id INT AUTO_INCREMENT PRIMARY KEY)");
     if(mysqli_errno($con)){
         echo("IMPOSSIVEL CRIAR TABELA");
     }

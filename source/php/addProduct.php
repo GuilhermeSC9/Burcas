@@ -5,8 +5,7 @@ global $con;
 $table_number = $_GET['tableNumber'];
 
 $tableDB = "Table_" . $table_number;
-
-
+echo $table_number;
 ?>
 
 <!DOCTYPE html>
@@ -44,41 +43,45 @@ $tableDB = "Table_" . $table_number;
     </header>
     <section class="search-section">
         <div><input type="text" name="search" id="search"></div>
-        <img src="/source/img/search.png" width="30px" heigth="15px">
+        <img src="/source/img/search.png" width="30px" height="15px">
     </section>
     <section class="tables-section">
-        <div class="addDiv">
-            <?php
-            echo "<input type='hidden' name='dbName' id='tableNumber' value='$table_number'>";
-            ?>
+        <div class="addDiv" style="display: none">
+            
+            <input type='hidden' name='dbName' id='tableNumber' value='<?php echo $table_number ?>'>
+            
         </div>
         <div class="tables" id="table">
             <div class="no-results" id="no-results" style="display:none">NADA FOI ENCONTRADO !!</div>
             <?php
                 mysqli_select_db($con,'menu');
                 $sql = mysqli_query($con,"SELECT * FROM products");
-                echo "<h1></h1>";
-                echo "<h1>PRODUTO:</h1>";
-                echo "<h1>PRECO:</h1>";
-                echo "<h1>QUANTIDADE:</h1>";
                 if(mysqli_num_rows($sql) > 0){
                     while($row = mysqli_fetch_assoc($sql)){
-                    $product_name = $row['product'];
-                    $product_price = $row['price'];
-                    $product_image = $row['image'];
-                    $product_id = $row['id'];
-                    echo "<img src='$product_image' class='skip-first-column' width=100px height=100px>";
-                    echo "<h1> $product_name </h1>";
-                    echo "<h2> $product_price </h2>";
-                    echo "<input type='hidden' id='productID' value='$product_id'>";
-                    echo "<div class='buttonAdd'>";
-                    echo "<select class='qty' name='quantidade' id='qty'>";
-                    for ($i = 1; $i <= 10; $i++) {
-                        echo "<option value='$i'>$i</option>";
-                    }
-                    echo "</select>";
-                    echo "<button id='buttonAdd' onclick='addProduct()'> Adicionar </button>";
-                    echo "</div>";
+                        $product_name = $row['product'];
+                        $product_price = $row['price'];
+                        $product_image = $row['image'];
+                        $product_id = $row['id'];
+            ?>
+                        <div class='productsTables product_<?php echo $product_id;  echo "<input type='hidden' name='price' class='price' data-price='$product_price'>"; ?>'>
+                            <img src="<?php echo $product_image; ?>" class="skip-first-column" width="100px" height="100px">
+                            <h1><?php echo $product_name; ?></h1>
+                            <textarea class="texto" rows="4" cols="25">
+                                <span><?php echo $product_id; ?></span>
+                            </textarea>
+                            <input type="hidden" class="productId" data-productnumber="<?php echo $product_id; ?>">
+                        </div>
+                        <div class="buttonAdd">
+                            <select class="qty" name="quantidade" id="qty">
+                                <?php
+                                for ($i = 1; $i <= 10; $i++) {
+                                    echo "<option value='$i'>$i</option>";
+                                }
+                                ?>
+                            </select>
+                            <button class="buttonAddButton">Adicionar</button>
+                        </div>
+            <?php
                     }
                 }
             ?>
