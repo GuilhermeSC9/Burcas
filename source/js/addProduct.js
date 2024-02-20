@@ -23,9 +23,12 @@ $(document).ready(function() {
         $.ajax({
             url: "openTablesValues.php",
             method: "POST",
+            dataType: "json",
             data: {addProduct: "True",Quantity: quantity,productID: productId,Observation: text,tableNumber: tableid, productPrice: productPrice },
             success(response){
-                console.log(response);
+                if(response.status == "success"){
+                    history.go(-1);
+                }
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);

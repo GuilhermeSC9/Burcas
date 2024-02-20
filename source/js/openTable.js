@@ -15,7 +15,15 @@ function deleteDB(){
     });
 }
 
-function addProduct(){
-    mysqli_select_db($con,'menu');
 
+function openPopup() {
+    // Exibe o overlay e o popup
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("popup").style.display = "block";
+}
+
+function closePopup() {
+    // Oculta o overlay e o popup
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("popup").style.display = "none";
 }

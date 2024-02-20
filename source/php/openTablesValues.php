@@ -31,6 +31,9 @@ if(isset($_POST['addProduct'])){
     $quantity = $_POST['Quantity'];
     $observation = $_POST['Observation'];
     $tableID = $_POST['tableNumber'];
+    $total = 0;
+
+
     mysqli_select_db($con,'menu');
 
     $sql = mysqli_query($con,"SELECT * FROM products WHERE id = $productID");
@@ -48,15 +51,21 @@ if(isset($_POST['addProduct'])){
         if($result_qty !== null){
             $qtynow = $result_qty['qty'];
             $moreQTY =  $qtynow + $quantity;
-            mysqli_query($con,"UPDATE products SET qty = $moreQTY WHERE product = $product_name");
+            $total = $moreQTY * $product_price;
+            mysqli_query($con,"UPDATE products SET qty = $moreQTY WHERE product = '$product_name'");
             if(mysqli_errno($con)){
-                $response = " ERRO AO DAR UPDATE NO QTY" . mysqli_error();
+                $response = array("status" => "error", "message" => "ERRO AO ATUALIZAR PRODUTO: ") . mysqli_error();
             }
             else{
-                $response = "SUCESSO ALTERANDO QTTY";
+                $response = array("status" => "success", "message" => "Quantidade Alterada !");
+                
             }
         }
-        mysqli_query($con,"INSERT INTO products (product,image,price,qty) VALUES ('$product_name','$product_image',$product_price,$quantity)");
+        else{
+            $total = $product_price;
+            mysqli_query($con,"INSERT INTO products (product,image,price,qty,total) VALUES ('$product_name','$product_image',$product_price,$quantity,$total)");
+            $response = array("status" => "success", "message" => "Produto Adicionado");
+        }
         echo json_encode($response);
     }
 }

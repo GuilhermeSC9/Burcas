@@ -5,7 +5,6 @@ global $con;
 $table_number = $_GET['tableNumber'];
 
 $tableDB = "Table_" . $table_number;
-echo $table_number;
 ?>
 
 <!DOCTYPE html>
@@ -65,8 +64,8 @@ echo $table_number;
             ?>
                         <div class='productsTables product_<?php echo $product_id;  echo "<input type='hidden' name='price' class='price' data-price='$product_price'>"; ?>'>
                             <img src="<?php echo $product_image; ?>" class="skip-first-column" width="100px" height="100px">
-                            <h1><?php echo $product_name; ?></h1>
-                            <textarea class="texto" rows="4" cols="25">
+                            <h1 style="font-weight: bold; font-size:20px"><?php echo $product_name; ?></h1>
+                            <textarea class="texto" rows="4" cols="10">
                                 <span><?php echo $product_id; ?></span>
                             </textarea>
                             <input type="hidden" class="productId" data-productnumber="<?php echo $product_id; ?>">
